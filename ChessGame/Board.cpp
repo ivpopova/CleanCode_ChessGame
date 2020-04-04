@@ -1,31 +1,36 @@
 #include"Board.h"
 
 void Board::printBoard() {
-	using namespace std;
-	cout << "   y: 0  1  2  3  4  5  6  7 " << endl << "x:" << endl;
-	for (int i = 0; i < 8; i++)
-	{
-		cout << " " << i << "   ";
-		for (int j = 0; j < 8; j++)
-		{
-			Figures p = square[i][j].getFigure();
-			Colors c = square[i][j].getColor();
 
-			switch (p)
+	cout << " y: ";
+	for (int  column = 0; column < BOARD_SIZE; column++) {
+		cout << column << " ";
+	}
+	cout << endl << "x:" << endl;
+
+	for (int row = 0; row < BOARD_SIZE; row++)
+	{
+		cout << " " << row << "   ";
+		for (int column = 0; column < BOARD_SIZE; column++)
+		{
+			Figures currentFigure = currentBoard[row][column].getFigure();
+			Colors currentColor = currentBoard[row][column].getColor();
+
+			switch (currentFigure)
 			{
-			case KING: (c == WHITE) ? cout << " K " : cout << " k ";
+			case KING: (currentColor == WHITE) ? cout << " K " : cout << " k ";
 				break;
-			case QUEEN: (c == WHITE) ? cout << " Q " : cout << " q ";
+			case QUEEN: (currentColor == WHITE) ? cout << " Q " : cout << " q ";
 				break;
-			case BISHOP:(c == WHITE) ? cout << " B " : cout << " b ";
+			case BISHOP:(currentColor == WHITE) ? cout << " B " : cout << " b ";
 				break;
-			case KNIGHT:(c == WHITE) ? cout << " H " : cout << " h ";
+			case KNIGHT:(currentColor == WHITE) ? cout << " H " : cout << " h ";
 				break;
-			case ROOK: (c == WHITE) ? cout << " R " : cout << " r ";
+			case ROOK: (currentColor == WHITE) ? cout << " R " : cout << " r ";
 				break;
-			case PAWN: (c == WHITE) ? cout << " P " : cout << " p ";
+			case PAWN: (currentColor == WHITE) ? cout << " P " : cout << " p ";
 				break;
-			case EMPTY: cout << " " << "\21" << " ";
+			case EMPTY: cout << "   ";
 				break;
 			default: cout << "XXX";
 				break;
@@ -37,36 +42,48 @@ void Board::printBoard() {
 
 }
 
-bool Board::doMove() {
-	using namespace std;
-	string move;
-	int x1, x2, y1, y2;
-	bool stop = false;
-	while (!stop)
+Square* Board::getSquare(int positionX, int positionY){
+		return &currentBoard[positionX][positionY];
+}
+
+void Board::setSquare(Square* newSquare, int positionX, int positionY){
+	currentBoard[positionX][positionY] = *newSquare;
+}
+
+bool Board::makeNextMove() {
+
+	string inputMove;
+	int oldPositionX, newPositionX, oldPositionY, oldPositionY;
+	bool isValidMove = false;
+
+	while (!isValidMove)
 	{
-		(turn == WHITE) ? cout << "White's turn" << endl : cout << "Black's turn" << endl;
+		(nextTurn == WHITE) ? cout << "White's turn" << endl : cout << "Black's turn" << endl;
 		cout << "Type in your move as a single four character string. Use x-coordinates first in each pair." << endl;
-		cin >> move;
-		x1 = move[0] - 48;
-		y1 = move[1] - 48;
-		x2 = move[2] - 48;
-		y2 = move[3] - 48;
-		if (getSquare(x1, y1)->getColor() == turn)
-		{
+		cin >> inputMove;
 
+		oldPositionX = inputMove[0] - '0';
+		oldPositionY = inputMove[1] - '0';
+		newPositionX = inputMove[2] - '0';
+		oldPositionY = inputMove[3] - '0';
 
-			if (makeMove(x1, y1, x2, y2) == false)
-			{
+		if (getSquare(oldPositionX, oldPositionY)->getColor() == nextTurn){
+
+			if (makeMove(oldPositionX, oldPositionY, newPositionX, oldPositionY) == false){
 				cout << "Invalid move, try again." << endl;
 			}
-			else
-				stop = true;
+			else {
+				isValidMove = true;
+			}		
 		}
-		else
+		else {
 			cout << "That's not your piece. Try again." << endl;
+		}
+			
 	}
-	if (getSquare(x2, y2)->getFigure() == KING)
-		if (getSquare(x1, y1)->getColor() == WHITE)
+
+	if (getSquare(newPositionX, oldPositionY)->getFigure() == KING) {
+		if (getSquare(oldPositionX, oldPositionY)->getColor() == WHITE)
 		{
 			cout << "WHITE WINS" << endl;
 			return false;
@@ -77,12 +94,14 @@ bool Board::doMove() {
 			cout << "BLACK WINS" << endl;
 			return false;
 		}
+	}
 
-
-	if (turn == BLACK)
-		turn = WHITE;
-	else
-		turn = BLACK;
+	if (nextTurn == BLACK) {
+		nextTurn = WHITE;
+	}
+	else {
+		nextTurn = BLACK;
+	}
 
 	return true;
 
@@ -90,41 +109,41 @@ bool Board::doMove() {
 
 void Board::setBoard()
 {
-	square[0][0].setPieceAndColor(ROOK, WHITE);
-	square[1][0].setPieceAndColor(KNIGHT, WHITE);
-	square[2][0].setPieceAndColor(BISHOP, WHITE);
-	square[3][0].setPieceAndColor(QUEEN, WHITE);
-	square[4][0].setPieceAndColor(KING, WHITE);
-	square[5][0].setPieceAndColor(BISHOP, WHITE);
-	square[6][0].setPieceAndColor(KNIGHT, WHITE);
-	square[7][0].setPieceAndColor(ROOK, WHITE);
+	currentBoard[0][0].setFigureAndColor(ROOK, WHITE);
+	currentBoard[1][0].setFigureAndColor(KNIGHT, WHITE);
+	currentBoard[2][0].setFigureAndColor(BISHOP, WHITE);
+	currentBoard[3][0].setFigureAndColor(QUEEN, WHITE);
+	currentBoard[4][0].setFigureAndColor(KING, WHITE);
+	currentBoard[5][0].setFigureAndColor(BISHOP, WHITE);
+	currentBoard[6][0].setFigureAndColor(KNIGHT, WHITE);
+	currentBoard[7][0].setFigureAndColor(ROOK, WHITE);
 
-	square[0][7].setPieceAndColor(ROOK, BLACK);
-	square[1][7].setPieceAndColor(KNIGHT, BLACK);
-	square[2][7].setPieceAndColor(BISHOP, BLACK);
-	square[3][7].setPieceAndColor(QUEEN, BLACK);
-	square[4][7].setPieceAndColor(KING, BLACK);
-	square[5][7].setPieceAndColor(BISHOP, BLACK);
-	square[6][7].setPieceAndColor(KNIGHT, BLACK);
-	square[7][7].setPieceAndColor(ROOK, BLACK);
+	currentBoard[0][7].setFigureAndColor(ROOK, BLACK);
+	currentBoard[1][7].setFigureAndColor(KNIGHT, BLACK);
+	currentBoard[2][7].setFigureAndColor(BISHOP, BLACK);
+	currentBoard[3][7].setFigureAndColor(QUEEN, BLACK);
+	currentBoard[4][7].setFigureAndColor(KING, BLACK);
+	currentBoard[5][7].setFigureAndColor(BISHOP, BLACK);
+	currentBoard[6][7].setFigureAndColor(KNIGHT, BLACK);
+	currentBoard[7][7].setFigureAndColor(ROOK, BLACK);
 
 	for (int i = 0; i < 8; i++)
 	{
-		square[i][1].setPieceAndColor(PAWN, WHITE);
-		square[i][6].setPieceAndColor(PAWN, BLACK);
+		currentBoard[i][1].setFigureAndColor(PAWN, WHITE);
+		currentBoard[i][6].setFigureAndColor(PAWN, BLACK);
 
 	}
 	for (int i = 2; i < 6; i++)
 	{
 		for (int j = 0; j < 8; j++)
-			square[j][i].setPieceAndColor(EMPTY, NONE);
+			currentBoard[j][i].setFigureAndColor(EMPTY, NONE);
 
 	}
 	for (int i = 0; i < 8; i++)
 		for (int j = 0; j < 8; j++)
 		{
-			square[i][j].setX(i);
-			square[i][j].setY(j);
+			currentBoard[i][j].setX(i);
+			currentBoard[i][j].setY(j);
 		}
 
 }
@@ -133,7 +152,7 @@ bool Board::playGame()
 {
 	system("cls");
 	printBoard();
-	return doMove();
+	return makeNextMove();
 
 }
 
@@ -172,7 +191,7 @@ bool Board::moveQueen(Square* thisQueen, Square* thatSpace) { //there might be p
 			for (int i = queenY + yIncrement; i != thatY; i += yIncrement)
 			{
 
-				if (square[thatX][i].getColor() != NONE)
+				if (currentBoard[thatX][i].getColor() != NONE)
 					return false;
 
 			}
@@ -184,7 +203,7 @@ bool Board::moveQueen(Square* thisQueen, Square* thatSpace) { //there might be p
 				xIncrement = (thatX - queenX) / (abs(thatX - queenX));
 				for (int i = queenX + xIncrement; i != thatX; i += xIncrement)
 				{
-					if (square[i][thatY].getColor() != NONE)
+					if (currentBoard[i][thatY].getColor() != NONE)
 						return false;
 				}
 			}
@@ -197,7 +216,7 @@ bool Board::moveQueen(Square* thisQueen, Square* thatSpace) { //there might be p
 					for (int i = 1; i < abs(queenX - thatX); i++)
 					{
 						std::cout << "It got here somehow";
-						if (square[queenX + xIncrement * i][queenY + yIncrement * i].getColor() != NONE)
+						if (currentBoard[queenX + xIncrement * i][queenY + yIncrement * i].getColor() != NONE)
 							return false;
 
 					}
@@ -236,7 +255,7 @@ bool Board::moveBishop(Square* thisBishop, Square* thatSpace) { //there might be
 		for (int i = 1; i < abs(bishopX - thatX); i++)
 		{
 			std::cout << "It got here somehow";
-			if (square[bishopX + xIncrement * i][bishopY + yIncrement * i].getColor() != NONE)
+			if (currentBoard[bishopX + xIncrement * i][bishopY + yIncrement * i].getColor() != NONE)
 				return false;
 
 		}
@@ -294,7 +313,7 @@ bool Board::moveRook(Square* thisRook, Square* thatSpace)
 			for (int i = rookY + yIncrement; i != thatY; i += yIncrement)
 			{
 
-				if (square[thatX][i].getColor() != NONE)
+				if (currentBoard[thatX][i].getColor() != NONE)
 					return false;
 
 			}
@@ -306,7 +325,7 @@ bool Board::moveRook(Square* thisRook, Square* thatSpace)
 				int xIncrement = (thatX - rookX) / (abs(thatX - rookX));
 				for (int i = rookX + xIncrement; i != thatX; i += xIncrement)
 				{
-					if (square[i][thatY].getColor() != NONE)
+					if (currentBoard[i][thatY].getColor() != NONE)
 						return false;
 				}
 			}

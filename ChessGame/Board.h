@@ -2,27 +2,28 @@
 #include"Square.h"
 #include <iostream>
 #include <string>
+using namespace std;
+
+const int BOARD_SIZE = 8;
 
 class Board
 {
-	Square square[8][8];
-	Colors turn = WHITE;
+	Square currentBoard[BOARD_SIZE][BOARD_SIZE];
+	Colors nextTurn = WHITE;
+
 	bool moveKing(Square* thisKing, Square* thatSpace);
 	bool moveQueen(Square* thisQueen, Square* thatSpace);
 	bool moveBishop(Square* thisBishop, Square* thatSpace);
 	bool moveKnight(Square* thisKnight, Square* thatSpace);
 	bool moveRook(Square* thisRook, Square* thatSpace);
 	bool movePawn(Square* thisPawn, Square* thatSpace);
-	bool makeMove(int x1, int y1, int x2, int y2);
+	bool makeMove(int oldPositionX, int oldPositionY, int newPositionX, int newPositionY);
 	void printBoard();
+
 public:
-	Square* getSquare(int x, int y) {
-		return &square[x][y];
-	}
-	void setSquare(Square* s, int x, int y) {
-		square[x][y] = *s;
-	}
-	bool doMove();
+	Square* getSquare(int positionX, int positionY);
+	void setSquare(Square* newSquare, int positionX, int positionY);
+	bool makeNextMove();
 
 	void setBoard();
 	bool playGame();
