@@ -28,9 +28,9 @@ Colors Square::getColor()
 	return color;
 }
 
-void Square::setPieceAndColor(Figures p, Colors c)
+void Square::setFigureAndColor(Figures figure, Colors color)
 {
-	figure = p;
-	color = c;
+	this->figure = figure;
+	this->color = color;
 
 }
