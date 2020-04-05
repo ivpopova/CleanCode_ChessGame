@@ -2,8 +2,8 @@
 
 Square::Square()
 {
-	figure = EMPTY;
-	color = NONE;
+	figure = Figures::EMPTY;
+	color = Colors::NONE;
 }
 
 void Square::setSpace(Square* space)
@@ -14,8 +14,8 @@ void Square::setSpace(Square* space)
 
 void Square::setEmpty()
 {
-	color = NONE;
-	figure = EMPTY;
+	color = Colors::NONE;
+	figure = Figures::EMPTY;
 }
 
 Figures Square::getFigure()

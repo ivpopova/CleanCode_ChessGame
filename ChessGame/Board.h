@@ -2,6 +2,7 @@
 #include"Square.h"
 #include <iostream>
 #include <string>
+#include "Colors.h"
 using namespace std;
 
 const int BOARD_SIZE = 8;
@@ -9,7 +10,7 @@ const int BOARD_SIZE = 8;
 class Board
 {
 	Square currentBoard[BOARD_SIZE][BOARD_SIZE];
-	Colors nextTurn = WHITE;
+	Colors nextTurn = Colors::WHITE;
 
 	bool moveKing(Square* thisKing, Square* thatSpace);
 	bool moveQueen(Square* thisQueen, Square* thatSpace);
@@ -18,6 +19,7 @@ class Board
 	bool moveRook(Square* thisRook, Square* thatSpace);
 	bool movePawn(Square* thisPawn, Square* thatSpace);
 	bool makeMove(int oldPositionX, int oldPositionY, int newPositionX, int newPositionY);
+	void changeTurn();
 	void printBoard();
 
 public:
