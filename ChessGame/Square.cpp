@@ -1,36 +1,32 @@
 #include "Square.h"
+#include "Figure.h"
 
 Square::Square()
 {
-	figure = Figures::EMPTY;
-	color = Colors::NONE;
+    chessPiece = nullptr;
 }
 
-void Square::setSpace(Square* space)
+Square::~Square()
+{ }
+
+Figure* Square::getPiece()
 {
-	color = space->getColor();
-	figure = space->getFigure();
+    return chessPiece;
 }
 
-void Square::setEmpty()
+
+void Square::setPiece(Figure* piece)
 {
-	color = Colors::NONE;
-	figure = Figures::EMPTY;
+    this->chessPiece = piece;
 }
 
-Figures Square::getFigure()
+
+void Square::clear()
 {
-	return figure;
+    this->chessPiece = nullptr;
 }
 
-Colors Square::getColor()
+void Square::print()
 {
-	return color;
-}
-
-void Square::setFigureAndColor(Figures figure, Colors color)
-{
-	this->figure = figure;
-	this->color = color;
-
+    chessPiece->print();
 }
