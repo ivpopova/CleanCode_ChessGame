@@ -6,10 +6,10 @@ class Pawn: public Figure
 private:
     bool doubleJumpAvailable;
 public:
-    Pawn(Color color, Position pos);
+    Pawn(Color color, Position position);
     ~Pawn();
 
-    bool validateMove(Position moveToPosition, Figure* piece);
+    bool isValidMove(Position moveToPosition, Figure* figure);
     Figure* promote(Position position);
 };
 

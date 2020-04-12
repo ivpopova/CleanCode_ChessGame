@@ -4,11 +4,11 @@
 
 extern Board board; 
 
-Rook::Rook(Color color, Position pos)
+Rook::Rook(Color color, Position position)
 {
     this->type = "R";
     this->color = color;
-    this->position = pos;
+    this->position = position;
 }
 
 
@@ -17,59 +17,59 @@ Rook::~Rook()
 }
 
 
-bool Rook::validateMove(Position moveToPos, Figure* piece)
+bool Rook::isValidMove(Position moveToPosition, Figure* figure)
 {
-    bool validMove = false;
+    bool isValid = false;
 
-    if((board.getPiece(moveToPos) == nullptr) ||
-       (board.getPiece(moveToPos) != nullptr && (board.getPiece(moveToPos)->getColor() != this->color)))
+    if((board.getFigure(moveToPosition) == nullptr) ||
+       (board.getFigure(moveToPosition) != nullptr && (board.getFigure(moveToPosition)->getColor() != this->color)))
     {
-        validMove = true;
+        isValid = true;
     }
     else
     {
-        validMove = false;
-        return validMove;
+        isValid = false;
+        return isValid;
     }
 
 
-    if((moveToPos.ypos == position.ypos))
+    if((moveToPosition.ypos == position.ypos))
     {
-        int xIncrement = (moveToPos.xpos - position.xpos) / (abs(moveToPos.xpos - position.xpos));
-        for(int i=position.xpos + xIncrement; i!=moveToPos.xpos; i+=xIncrement)
+        int xIncrement = (moveToPosition.xpos - position.xpos) / (abs(moveToPosition.xpos - position.xpos));
+        for(int i=position.xpos + xIncrement; i!=moveToPosition.xpos; i+=xIncrement)
         {
             Position newPos;
             newPos.xpos = i;
-            newPos.ypos = moveToPos.ypos;
-            if(board.getPiece(newPos) != nullptr)
+            newPos.ypos = moveToPosition.ypos;
+            if(board.getFigure(newPos) != nullptr)
             {
-                validMove = false;
-                return validMove;
+                isValid = false;
+                return isValid;
             }
         }
-        validMove = true;
+        isValid = true;
     }
 
     
-    if((moveToPos.xpos == position.xpos))
+    if((moveToPosition.xpos == position.xpos))
     {
-        int yIncrement = (moveToPos.ypos - position.ypos) / (abs(moveToPos.ypos - position.ypos));
-        for(int i=position.ypos+yIncrement; i!=moveToPos.ypos; i+=yIncrement)
+        int yIncrement = (moveToPosition.ypos - position.ypos) / (abs(moveToPosition.ypos - position.ypos));
+        for(int i=position.ypos+yIncrement; i!=moveToPosition.ypos; i+=yIncrement)
         {
-            Position newPos(moveToPos.xpos, i);
-            if(board.getPiece(newPos) != nullptr)
+            Position newPos(moveToPosition.xpos, i);
+            if(board.getFigure(newPos) != nullptr)
             {
-                validMove = false;
-                return validMove;
+                isValid = false;
+                return isValid;
             }
         }
-        validMove = true;
+        isValid = true;
     }
 
-    if(validMove && (board.getPiece(moveToPos) != nullptr) && (board.getPiece(moveToPos)->getType() == "K"))
+    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
-    return validMove;
+    return isValid;
 }

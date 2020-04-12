@@ -6,11 +6,11 @@
 extern Board board; 
 
 
-Bishop::Bishop(Color color, Position pos)
+Bishop::Bishop(Color color, Position position)
 {
     this->type = "B";
     this->color = color;
-    this->position = pos;
+    this->position = position;
 }
 
 
@@ -18,43 +18,43 @@ Bishop::~Bishop()
 { }
 
 
-bool Bishop::validateMove(Position moveToPos, Figure* piece)
+bool Bishop::isValidMove(Position moveToPosition, Figure* figure)
 {
-    bool validMove = false;
+    bool isValid = false;
 
-    if((board.getPiece(moveToPos) == nullptr) ||
-       ((board.getPiece(moveToPos) != nullptr) && (board.getPiece(moveToPos)->getColor() != this->color)))
+    if((board.getFigure(moveToPosition) == nullptr) ||
+       ((board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getColor() != this->color)))
     {
-        validMove = true;
+        isValid = true;
     }
     else
     {
-        validMove = false;
-        return validMove;
+        isValid = false;
+        return isValid;
     }
 
-    if(abs(position.ypos - moveToPos.ypos) == abs(position.xpos - moveToPos.xpos))
+    if(abs(position.ypos - moveToPosition.ypos) == abs(position.xpos - moveToPosition.xpos))
     {
         //cannot jump over other pieces
-        int xIncrement = (moveToPos.xpos - position.xpos) / (abs(moveToPos.xpos - position.xpos));
-		int yIncrement = (moveToPos.ypos - position.ypos) / (abs(moveToPos.ypos - position.ypos));
+        int xIncrement = (moveToPosition.xpos - position.xpos) / (abs(moveToPosition.xpos - position.xpos));
+		int yIncrement = (moveToPosition.ypos - position.ypos) / (abs(moveToPosition.ypos - position.ypos));
 
-		for(int i=1; i<abs(position.xpos - moveToPos.xpos); ++i)
+		for(int i=1; i<abs(position.xpos - moveToPosition.xpos); ++i)
 		{
 		    Position newPosition(position.xpos + xIncrement*i, position.ypos + yIncrement*i);
-			if(board.getPiece(newPosition) != nullptr)
+			if(board.getFigure(newPosition) != nullptr)
             {
-                validMove = false;
-                return validMove;
+                isValid = false;
+                return isValid;
             }
 		}
-        validMove = true;
+        isValid = true;
     }
 
-    if(validMove && (board.getPiece(moveToPos) != nullptr) && (board.getPiece(moveToPos)->getType() == "K"))
+    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
-    return validMove;
+    return isValid;
 }
 

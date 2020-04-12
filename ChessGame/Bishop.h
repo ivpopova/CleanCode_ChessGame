@@ -4,9 +4,9 @@
 class Bishop: public virtual Figure
 {
 public:
-    Bishop(Color color, Position pos);
+    Bishop(Color color, Position position);
     ~Bishop();
 
-    bool validateMove(Position moveToPosition, Figure* piece);
+    bool isValidMove(Position moveToPosition, Figure* figure);
 };
 

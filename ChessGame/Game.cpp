@@ -79,7 +79,7 @@ bool Game::isValidInput()
         std::cout << "Destination location out of the chess board\n";
         return false;
     }
-    if(board.getPiece(moveFrom) == nullptr)
+    if(board.getFigure(moveFrom) == nullptr)
     {
         std::cout << "There is no piece on this source location on the chess board\n";
         return false;
@@ -135,7 +135,7 @@ void Game::startNewGame()
             while(!isValidInput());
 
             //check that the right colored piece is selected
-            if(board.getPiece(moveFrom)->getColor() != colorOnTurn)
+            if(board.getFigure(moveFrom)->getColor() != colorOnTurn)
             {
                 std::cout << "Move Invalid: Wrong color piece selected\n";
                 moveSucceed = false;
@@ -143,7 +143,7 @@ void Game::startNewGame()
             else
             {
                 //validate the specific chess piece rules
-                moveSucceed = board.movePiece(moveFrom, moveTo);
+                moveSucceed = board.moveFigure(moveFrom, moveTo);
                 if(moveSucceed == false)
                 {
                     std::cout << "Invalid move!\n";

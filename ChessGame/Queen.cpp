@@ -3,20 +3,20 @@
 
 extern Board board; 
 
-Queen::Queen(Color color, Position pos): Figure(), Bishop(color, pos), Rook(color, pos)
+Queen::Queen(Color color, Position position): Figure(), Bishop(color, position), Rook(color, position)
 {
     this->type = "Q";
     this->color = color;
-    this->position = pos;
+    this->position = position;
 }
 
 Queen::~Queen()
 {
 }
 
-bool Queen::validateMove(Position moveToPos, Figure* piece)
+bool Queen::isValidMove(Position moveToPosition, Figure* figure)
 {
-    if(Bishop::validateMove(moveToPos, piece) || Rook::validateMove(moveToPos, piece))
+    if(Bishop::isValidMove(moveToPosition, figure) || Rook::isValidMove(moveToPosition, figure))
     {
         return true;
     }

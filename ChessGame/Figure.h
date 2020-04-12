@@ -2,11 +2,7 @@
 #include<iostream>
 #include <string>
 
-enum  Color
-{
-    Black,
-    White
-};
+enum  Color { Black, White };
 
 struct Position
 {
@@ -33,6 +29,7 @@ public:
     Position getPosition() const;
     Color getColor() const;
     std::string getType() const ;
-    virtual bool validateMove(Position moveToPosition, Figure* piece) = 0;
+
+    virtual bool isValidMove(Position moveToPosition, Figure* figure) = 0;
     virtual ~Figure();
 };

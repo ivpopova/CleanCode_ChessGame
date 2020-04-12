@@ -4,14 +4,14 @@
 class Square
 {
 private:
-    Figure *chessPiece;
+    Figure *chessFigure;
 
 public:
     Square();
     virtual ~Square();
 
-    Figure* getPiece();
-    void setPiece(Figure *piece);
+    Figure* getFigure();
+    void setFigure(Figure *figure);
     void clear();
     void print();
 };

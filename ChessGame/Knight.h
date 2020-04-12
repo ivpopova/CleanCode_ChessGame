@@ -5,9 +5,9 @@ class Knight: public Figure
 {
 public:
 
-    Knight(Color color, Position pos);
+    Knight(Color color, Position position);
     ~Knight();
 
-    bool validateMove(Position moveToPosition, Figure* piece);
+    bool isValidMove(Position moveToPosition, Figure* figure);
 };
 

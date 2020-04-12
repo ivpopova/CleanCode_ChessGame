@@ -3,53 +3,45 @@
 #include "Knight.h"
 #include "Board.h"
 
-extern Board board; //board is declared in the main and extern lets compiler know this
+extern Board board; 
 
-/**@summary Constructor
- * @color Color of the new piece
- * @pos Position of the new piece
- */
-Knight::Knight(Color color, Position pos)
+
+Knight::Knight(Color color, Position position)
 {
     this->type = "N";
     this->color = color;
-    this->position = pos;
+    this->position = position;
 }
 
-/**@summary Default Destructor
- */
+
 Knight::~Knight()
 { }
 
-/**@summary Validates a move by the piece logic of moving
- * @param moteToPos - Starting position of the piece
- * @return bool - Success or Failure
- */
-bool Knight::validateMove(Position moveToPos, Figure* piece)
+bool Knight::isValidMove(Position moveToPosition, Figure* figure)
 {
-    bool validMove = false;
+    bool isValid = false;
 
     //check if it's possible to move the knight to this square
-    if((board.getPiece(moveToPos) == nullptr) ||
-       (board.getPiece(moveToPos) != nullptr && (board.getPiece(moveToPos)->getColor() != this->color)))
+    if((board.getFigure(moveToPosition) == nullptr) ||
+       (board.getFigure(moveToPosition) != nullptr && (board.getFigure(moveToPosition)->getColor() != this->color)))
     {
-        validMove = true;
+        isValid = true;
     }
     else
     {
-        validMove = false;
-        return validMove;
+        isValid = false;
+        return isValid;
     }
 
-    if(((abs(position.xpos - moveToPos.xpos) == 2) && (abs(position.ypos - moveToPos.ypos) == 1)) ||
-       ((abs(position.xpos - moveToPos.xpos) == 1) && (abs(position.ypos  - moveToPos.ypos) == 2)))
+    if(((abs(position.xpos - moveToPosition.xpos) == 2) && (abs(position.ypos - moveToPosition.ypos) == 1)) ||
+       ((abs(position.xpos - moveToPosition.xpos) == 1) && (abs(position.ypos  - moveToPosition.ypos) == 2)))
     {
-        validMove = true;
+        isValid = true;
     }
 
-    if(validMove && (board.getPiece(moveToPos) != nullptr) && (board.getPiece(moveToPos)->getType() == "K"))
+    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
-    return validMove;
+    return isValid;
 }

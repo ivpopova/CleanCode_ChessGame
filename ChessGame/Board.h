@@ -6,16 +6,16 @@ class Board
 private:
     Square board[8][8];
 
-    void initializePieces();
-    bool isWithinBoard(Position pos);
+    void initializeFigures();
+    bool isWithinBoard(Position position);
 
 public:
     Board();
     virtual ~Board();
 
     void print();
-    bool movePiece(Position fromPos, Position toPos);
-    void changePiece(Position pos, Figure* piece);
-    Figure* getPiece(Position piecePos);
+    bool moveFigure(Position fromPosition, Position toPosition);
+    void changeFigure(Position position, Figure* figure);
+    Figure* getFigure(Position figurePosition);
 };
 

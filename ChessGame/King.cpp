@@ -3,88 +3,79 @@
 #include "King.h"
 #include "Board.h"
 
-extern Board board; //board is declared in the main and extern lets compiler know this
+extern Board board; 
 
-/**@summary Constructor
- * @color Color of the new piece
- * @pos Position of the new piece
- */
-King::King(Color color, Position pos)
+King::King(Color color, Position position)
 {
     this->type = "K";
     this->color = color;
-    this->position = pos;
+    this->position = position;
 }
 
-/**@summary Default Destructor
- */
 King::~King()
 { }
 
-/**@summary Validates a move by the piece logic of moving
- * @param moteToPos - Starting position of the piece
- * @return bool - Success or Failure
- */
-bool King::validateMove(Position moveToPos, Figure* piece)
+
+bool King::isValidMove(Position moveToPosition, Figure* figure)
 {
- bool validMove = false;
+ bool isValid = false;
 
     //check if it's possible to move the king to this square
-    if((board.getPiece(moveToPos) == nullptr) ||
-       (board.getPiece(moveToPos) != nullptr && (board.getPiece(moveToPos)->getColor() != this->color)))
+    if((board.getFigure(moveToPosition) == nullptr) ||
+       (board.getFigure(moveToPosition) != nullptr && (board.getFigure(moveToPosition)->getColor() != this->color)))
     {
-        validMove = true;
+        isValid = true;
     }
     else
     {
-        validMove = false;
-        return validMove;
+        isValid = false;
+        return isValid;
     }
 
     //(x-1,y+1), (x,y+1), (x+1,y+1),
-    if(moveToPos.ypos == (position.ypos + 1) && moveToPos.xpos == (position.xpos - 1))
+    if(moveToPosition.ypos == (position.ypos + 1) && moveToPosition.xpos == (position.xpos - 1))
     {
-        validMove = true;
+        isValid = true;
     }
-    else if(moveToPos.ypos == (position.ypos + 1) && moveToPos.xpos == position.xpos)
+    else if(moveToPosition.ypos == (position.ypos + 1) && moveToPosition.xpos == position.xpos)
     {
-        validMove = true;
+        isValid = true;
     }
-    else if(moveToPos.ypos == (position.ypos + 1) && moveToPos.xpos == (position.xpos + 1))
+    else if(moveToPosition.ypos == (position.ypos + 1) && moveToPosition.xpos == (position.xpos + 1))
     {
-        validMove = true;
+        isValid = true;
     }
     //(x-1,y), (x+1,y),
-    else if(moveToPos.ypos == position.ypos && moveToPos.xpos == (position.xpos - 1))
+    else if(moveToPosition.ypos == position.ypos && moveToPosition.xpos == (position.xpos - 1))
     {
-        validMove = true;
+        isValid = true;
     }
-    else if(moveToPos.ypos == position.ypos && moveToPos.xpos == (position.xpos + 1))
+    else if(moveToPosition.ypos == position.ypos && moveToPosition.xpos == (position.xpos + 1))
     {
-        validMove = true;
+        isValid = true;
     }
     //(x-1,y-1), (x,y-1), (x+1,y-1),
-    else if(moveToPos.ypos == (position.ypos - 1) && moveToPos.xpos == (position.xpos - 1))
+    else if(moveToPosition.ypos == (position.ypos - 1) && moveToPosition.xpos == (position.xpos - 1))
     {
-        validMove = true;
+        isValid = true;
     }
-    else if(moveToPos.ypos == (position.ypos - 1) && moveToPos.xpos == position.xpos)
+    else if(moveToPosition.ypos == (position.ypos - 1) && moveToPosition.xpos == position.xpos)
     {
-        validMove = true;
+        isValid = true;
     }
-    else if(moveToPos.ypos == (position.ypos - 1) && moveToPos.xpos == (position.xpos + 1))
+    else if(moveToPosition.ypos == (position.ypos - 1) && moveToPosition.xpos == (position.xpos + 1))
     {
-        validMove = true;
+        isValid = true;
     }
     else
     {
-        validMove = false;
+        isValid = false;
     }
 
-    if(validMove && (board.getPiece(moveToPos) != nullptr) && (board.getPiece(moveToPos)->getType() == "K"))
+    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
-    return validMove;
+    return isValid;
 }

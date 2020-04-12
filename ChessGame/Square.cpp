@@ -3,30 +3,30 @@
 
 Square::Square()
 {
-    chessPiece = nullptr;
+    chessFigure = nullptr;
 }
 
 Square::~Square()
 { }
 
-Figure* Square::getPiece()
+Figure* Square::getFigure()
 {
-    return chessPiece;
+    return chessFigure;
 }
 
 
-void Square::setPiece(Figure* piece)
+void Square::setFigure(Figure* figure)
 {
-    this->chessPiece = piece;
+    this->chessFigure = figure;
 }
 
 
 void Square::clear()
 {
-    this->chessPiece = nullptr;
+    this->chessFigure = nullptr;
 }
 
 void Square::print()
 {
-    chessPiece->print();
+    chessFigure->print();
 }

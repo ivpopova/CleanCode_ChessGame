@@ -4,8 +4,8 @@
 class Rook: public virtual Figure
 {
 public:
-    Rook(Color color, Position pos);
+    Rook(Color color, Position position);
     ~Rook();
 
-    bool validateMove(Position moveToPosition, Figure* piece);
+    bool isValidMove(Position moveToPosition, Figure* figure);
 };

@@ -10,7 +10,7 @@
 
 Board::Board()
 {
-    initializePieces();
+    initializeFigures();
 }
 
 
@@ -34,10 +34,10 @@ void Board::print()
         for(int col=0; col<8; ++col)
         {
             std::cout << "| ";
-            Figure *currPiece = board[row][col].getPiece();
-            if(currPiece != nullptr)
+            Figure *currentFigure = board[row][col].getFigure();
+            if(currentFigure != nullptr)
             {
-                currPiece->print();
+                currentFigure->print();
             }
             else
             {
@@ -66,99 +66,99 @@ void Board::print()
 }
 
 
-void Board::changePiece(Position pos, Figure* piece)
+void Board::changeFigure(Position position, Figure* figure)
 {
-    board[pos.ypos][pos.xpos].clear();
-    board[pos.ypos][pos.xpos].setPiece(piece);
+    board[position.ypos][position.xpos].clear();
+    board[position.ypos][position.xpos].setFigure(figure);
     return;
 }
 
 
-void Board::initializePieces()
+void Board::initializeFigures()
 {
     // Pawns
     for(int col=0; col<8; ++col)
     {
         Position blackPawnPos = {col,6};
-        board[blackPawnPos.ypos][blackPawnPos.xpos].setPiece(new Pawn(Black, blackPawnPos));
+        board[blackPawnPos.ypos][blackPawnPos.xpos].setFigure(new Pawn(Black, blackPawnPos));
 
         Position whitePawnPos = {col,1};
-        board[whitePawnPos.ypos][blackPawnPos.xpos].setPiece(new Pawn(White, whitePawnPos));
+        board[whitePawnPos.ypos][blackPawnPos.xpos].setFigure(new Pawn(White, whitePawnPos));
     }
 
 
     // Rooks
     Position whiteRookPos = {0,0};
-    board[whiteRookPos.ypos][whiteRookPos.xpos].setPiece(new Rook(White, whiteRookPos));
+    board[whiteRookPos.ypos][whiteRookPos.xpos].setFigure(new Rook(White, whiteRookPos));
 
     Position whiteRookPos2 = {7,0};
-    board[whiteRookPos2.ypos][whiteRookPos2.xpos].setPiece(new Rook(White, whiteRookPos2));
+    board[whiteRookPos2.ypos][whiteRookPos2.xpos].setFigure(new Rook(White, whiteRookPos2));
 
     Position blackRookPos = {0,7};
-    board[blackRookPos.ypos][blackRookPos.xpos].setPiece(new Rook(Black, blackRookPos));
+    board[blackRookPos.ypos][blackRookPos.xpos].setFigure(new Rook(Black, blackRookPos));
 
     Position blackRookPos2 = {7,7};
-    board[blackRookPos2.ypos][blackRookPos2.xpos].setPiece(new Rook(Black, blackRookPos2));
+    board[blackRookPos2.ypos][blackRookPos2.xpos].setFigure(new Rook(Black, blackRookPos2));
 
 
     // Knights
     Position whiteKnightPos = {1,0};
-    board[whiteKnightPos.ypos][whiteKnightPos.xpos].setPiece(new Knight(White, whiteKnightPos));
+    board[whiteKnightPos.ypos][whiteKnightPos.xpos].setFigure(new Knight(White, whiteKnightPos));
 
     Position whiteKnightPos2 = {6,0};
-    board[whiteKnightPos2.ypos][whiteKnightPos2.xpos].setPiece(new Knight(White, whiteKnightPos2));
+    board[whiteKnightPos2.ypos][whiteKnightPos2.xpos].setFigure(new Knight(White, whiteKnightPos2));
 
     Position blackKnightPos = {1,7};
-    board[blackKnightPos.ypos][blackKnightPos.xpos].setPiece(new Knight(Black, blackKnightPos));
+    board[blackKnightPos.ypos][blackKnightPos.xpos].setFigure(new Knight(Black, blackKnightPos));
 
     Position blackKnightPos2 = {6,7};
-    board[blackKnightPos2.ypos][blackKnightPos2.xpos].setPiece(new Knight(Black, blackKnightPos2));
+    board[blackKnightPos2.ypos][blackKnightPos2.xpos].setFigure(new Knight(Black, blackKnightPos2));
 
 
     // Bishops
     Position whiteBishopPos = {2,0};
-    board[whiteBishopPos.ypos][whiteBishopPos.xpos].setPiece(new Bishop(White, whiteBishopPos));
+    board[whiteBishopPos.ypos][whiteBishopPos.xpos].setFigure(new Bishop(White, whiteBishopPos));
 
     Position whiteBishopPos2 = {5,0};
-    board[whiteBishopPos2.ypos][whiteBishopPos2.xpos].setPiece(new Bishop(White, whiteBishopPos2));
+    board[whiteBishopPos2.ypos][whiteBishopPos2.xpos].setFigure(new Bishop(White, whiteBishopPos2));
 
     Position blackBishopPos = {2,7};
-    board[blackBishopPos.ypos][blackBishopPos.xpos].setPiece(new Bishop(Black, blackBishopPos));
+    board[blackBishopPos.ypos][blackBishopPos.xpos].setFigure(new Bishop(Black, blackBishopPos));
 
     Position blackBishopPos2 = {5,7};
-    board[blackBishopPos2.ypos][blackBishopPos2.xpos].setPiece(new Bishop(Black, blackBishopPos2));
+    board[blackBishopPos2.ypos][blackBishopPos2.xpos].setFigure(new Bishop(Black, blackBishopPos2));
 
 
     // Kings
     Position whiteKingPos = {4,0};
-    board[whiteKingPos.ypos][whiteKingPos.xpos].setPiece(new King(White, whiteKingPos));
+    board[whiteKingPos.ypos][whiteKingPos.xpos].setFigure(new King(White, whiteKingPos));
 
     Position blackKingPos = {4,7};
-    board[blackKingPos.ypos][blackKingPos.xpos].setPiece(new King(Black, blackKingPos));
+    board[blackKingPos.ypos][blackKingPos.xpos].setFigure(new King(Black, blackKingPos));
 
 
     // Queens
     Position whiteQueenPos = {3,0};
-    board[whiteQueenPos.ypos][whiteQueenPos.xpos].setPiece(new Queen(White, whiteQueenPos));
+    board[whiteQueenPos.ypos][whiteQueenPos.xpos].setFigure(new Queen(White, whiteQueenPos));
 
     Position blackQueenPos = {3,7};
-    board[blackQueenPos.ypos][blackQueenPos.xpos].setPiece(new Queen(Black, blackQueenPos));
+    board[blackQueenPos.ypos][blackQueenPos.xpos].setFigure(new Queen(Black, blackQueenPos));
 }
 
 
-bool Board::movePiece(Position fromPos, Position toPos)
+bool Board::moveFigure(Position fromPosition, Position toPosition)
 {
     bool moveCompleted = false;
 
-    Figure* piece = board[fromPos.ypos][fromPos.xpos].getPiece();
+    Figure* piece = board[fromPosition.ypos][fromPosition.xpos].getFigure();
 
     //check weather we can make this move - is there a piece, is it possible this piece to make this move, is it within the board
-    if(piece != nullptr && piece->validateMove(toPos, piece) && isWithinBoard(toPos))
+    if(piece != nullptr && piece->isValidMove(toPosition, piece) && isWithinBoard(toPosition))
     {
         piece->print();
-        piece->setPosition(toPos);
-        board[toPos.ypos][toPos.xpos].setPiece(piece);
-        board[fromPos.ypos][fromPos.xpos].clear();
+        piece->setPosition(toPosition);
+        board[toPosition.ypos][toPosition.xpos].setFigure(piece);
+        board[fromPosition.ypos][fromPosition.xpos].clear();
 
         moveCompleted = true;
     }
@@ -167,15 +167,15 @@ bool Board::movePiece(Position fromPos, Position toPos)
 }
 
 
-Figure* Board::getPiece(Position piecePos)
+Figure* Board::getFigure(Position figurePosition)
 {
-    return board[piecePos.ypos][piecePos.xpos].getPiece();
+    return board[figurePosition.ypos][figurePosition.xpos].getFigure();
 }
 
 
-bool Board::isWithinBoard(Position pos)
+bool Board::isWithinBoard(Position position)
 {
-    if((0 <= pos.xpos && pos.xpos <= 7) && (0 <= pos.ypos && pos.ypos <= 7))
+    if((0 <= position.xpos && position.xpos <= 7) && (0 <= position.ypos && position.ypos <= 7))
     {
         return true;
     }

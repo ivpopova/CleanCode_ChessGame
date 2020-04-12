@@ -6,9 +6,9 @@
 class Queen: public virtual Figure , public Bishop, public Rook
 {
 public:
-    Queen(Color color, Position pos);
+    Queen(Color color, Position position);
     ~Queen();
 
-    bool validateMove(Position moveToPosition, Figure* piece);
+    bool isValidMove(Position moveToPosition, Figure* figure);
 };
 
