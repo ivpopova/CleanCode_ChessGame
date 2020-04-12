@@ -33,8 +33,8 @@ bool Knight::isValidMove(Position moveToPosition, Figure* figure)
         return isValid;
     }
 
-    if(((abs(position.xpos - moveToPosition.xpos) == 2) && (abs(position.ypos - moveToPosition.ypos) == 1)) ||
-       ((abs(position.xpos - moveToPosition.xpos) == 1) && (abs(position.ypos  - moveToPosition.ypos) == 2)))
+    if(((abs(position.x - moveToPosition.x) == 2) && (abs(position.y - moveToPosition.y) == 1)) ||
+       ((abs(position.x - moveToPosition.x) == 1) && (abs(position.y  - moveToPosition.y) == 2)))
     {
         isValid = true;
     }

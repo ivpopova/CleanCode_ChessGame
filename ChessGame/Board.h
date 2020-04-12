@@ -1,10 +1,12 @@
 #pragma once
 #include "Square.h"
 
+const int BOARD_SIZE = 8;
+
 class Board
 {
 private:
-    Square board[8][8];
+    Square board[BOARD_SIZE][BOARD_SIZE];
 
     void initializeFigures();
     bool isWithinBoard(Position position);

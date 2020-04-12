@@ -98,30 +98,30 @@ bool Pawn::isValidMove(Position moveToPosition, Figure* figure)
         allowableMove2 = -2;
     }
 
-    Position moveToPosTemp(position.ypos + allowableMove1, position.xpos);
+    Position moveToPosTemp(position.y + allowableMove1, position.x);
 
-    if(moveToPosition.ypos == (position.ypos + allowableMove1) && moveToPosition.xpos == position.xpos && board.getFigure(moveToPosition) == nullptr)
+    if(moveToPosition.y == (position.y + allowableMove1) && moveToPosition.x == position.x && board.getFigure(moveToPosition) == nullptr)
     {
         //pawn promotion
-        if(moveToPosition.ypos == 7 || moveToPosition.ypos == 0)
+        if(moveToPosition.y == 7 || moveToPosition.y == 0)
         {
             figure = promote(moveToPosition);
         }
         isValid = true;
         doubleJumpAvailable = false;
     }
-    else if(doubleJumpAvailable == true && moveToPosition.ypos == (position.ypos + allowableMove2) && moveToPosition.xpos == position.xpos
+    else if(doubleJumpAvailable == true && moveToPosition.y == (position.y + allowableMove2) && moveToPosition.x == position.x
             && board.getFigure(moveToPosition) == nullptr && board.getFigure(moveToPosTemp) == nullptr)
     {
         isValid = true;
         doubleJumpAvailable = false;
     }
-    else if(moveToPosition.ypos == position.ypos + allowableMove1 && (moveToPosition.xpos == position.xpos - 1 || moveToPosition.xpos == position.xpos + 1))
+    else if(moveToPosition.y == position.y + allowableMove1 && (moveToPosition.x == position.x - 1 || moveToPosition.x == position.x + 1))
     {
         //check if there is a piece of the opposite color
         if(board.getFigure(moveToPosition) != nullptr && (board.getFigure(moveToPosition)->getColor() != this->color))
         {
-            if(moveToPosition.ypos == 7 || moveToPosition.ypos == 0)
+            if(moveToPosition.y == 7 || moveToPosition.y == 0)
             {
                 figure = promote(moveToPosition);
                 figure->print();

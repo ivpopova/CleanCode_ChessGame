@@ -33,37 +33,37 @@ bool King::isValidMove(Position moveToPosition, Figure* figure)
     }
 
     //(x-1,y+1), (x,y+1), (x+1,y+1),
-    if(moveToPosition.ypos == (position.ypos + 1) && moveToPosition.xpos == (position.xpos - 1))
+    if(moveToPosition.y == (position.y + 1) && moveToPosition.x == (position.x - 1))
     {
         isValid = true;
     }
-    else if(moveToPosition.ypos == (position.ypos + 1) && moveToPosition.xpos == position.xpos)
+    else if(moveToPosition.y == (position.y + 1) && moveToPosition.x == position.x)
     {
         isValid = true;
     }
-    else if(moveToPosition.ypos == (position.ypos + 1) && moveToPosition.xpos == (position.xpos + 1))
+    else if(moveToPosition.y == (position.y + 1) && moveToPosition.x == (position.x + 1))
     {
         isValid = true;
     }
     //(x-1,y), (x+1,y),
-    else if(moveToPosition.ypos == position.ypos && moveToPosition.xpos == (position.xpos - 1))
+    else if(moveToPosition.y == position.y && moveToPosition.x == (position.x - 1))
     {
         isValid = true;
     }
-    else if(moveToPosition.ypos == position.ypos && moveToPosition.xpos == (position.xpos + 1))
+    else if(moveToPosition.y == position.y && moveToPosition.x == (position.x + 1))
     {
         isValid = true;
     }
     //(x-1,y-1), (x,y-1), (x+1,y-1),
-    else if(moveToPosition.ypos == (position.ypos - 1) && moveToPosition.xpos == (position.xpos - 1))
+    else if(moveToPosition.y == (position.y - 1) && moveToPosition.x == (position.x - 1))
     {
         isValid = true;
     }
-    else if(moveToPosition.ypos == (position.ypos - 1) && moveToPosition.xpos == position.xpos)
+    else if(moveToPosition.y == (position.y - 1) && moveToPosition.x == position.x)
     {
         isValid = true;
     }
-    else if(moveToPosition.ypos == (position.ypos - 1) && moveToPosition.xpos == (position.xpos + 1))
+    else if(moveToPosition.y == (position.y - 1) && moveToPosition.x == (position.x + 1))
     {
         isValid = true;
     }

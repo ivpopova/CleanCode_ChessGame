@@ -51,9 +51,9 @@ Position convertChessNotation(std::string moveInputStr)
     Position movePosition;
 
     //cast to an int, and subtract 97 to make ASCII
-    movePosition.xpos = (int) moveInputStr[0] - 97;
+    movePosition.x = (int) moveInputStr[0] - 97;
     //subtract 1 to make 0 based
-    movePosition.ypos = atoi(&moveInputStr[1]) - 1;
+    movePosition.y = atoi(&moveInputStr[1]) - 1;
 
     return movePosition;
 }
@@ -68,13 +68,13 @@ bool Game::isValidInput()
     }
 
     //check if from position is within the chess board
-    if(moveFrom.xpos < 0 || moveFrom.xpos > 7 || moveFrom.ypos < 0 || moveFrom.ypos > 7)
+    if(moveFrom.x < 0 || moveFrom.x > 7 || moveFrom.y < 0 || moveFrom.y > 7)
     {
         std::cout << "Source location out of the chess board\n";
         return false;
     }
     //check if to position is within the chess board
-    if(moveTo.xpos < 0 || moveTo.xpos > 7 || moveTo.ypos < 0 || moveTo.ypos > 7)
+    if(moveTo.x < 0 || moveTo.x > 7 || moveTo.y < 0 || moveTo.y > 7)
     {
         std::cout << "Destination location out of the chess board\n";
         return false;

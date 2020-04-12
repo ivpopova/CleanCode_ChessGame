@@ -21,6 +21,7 @@ Bishop::~Bishop()
 bool Bishop::isValidMove(Position moveToPosition, Figure* figure)
 {
     bool isValid = false;
+    
 
     if((board.getFigure(moveToPosition) == nullptr) ||
        ((board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getColor() != this->color)))
@@ -33,21 +34,27 @@ bool Bishop::isValidMove(Position moveToPosition, Figure* figure)
         return isValid;
     }
 
-    if(abs(position.ypos - moveToPosition.ypos) == abs(position.xpos - moveToPosition.xpos))
+    int currentX = position.x;
+    int currentY = position.y;
+    int moveToX = moveToPosition.x;
+    int moveToY = moveToPosition.y;
+
+    if(abs(currentY - moveToY) == abs(currentX - moveToX))
     {
         //cannot jump over other pieces
-        int xIncrement = (moveToPosition.xpos - position.xpos) / (abs(moveToPosition.xpos - position.xpos));
-		int yIncrement = (moveToPosition.ypos - position.ypos) / (abs(moveToPosition.ypos - position.ypos));
+        int xIncrement = (moveToX - currentX) / (abs(moveToX - currentX));
+		int yIncrement = (moveToY - currentY) / (abs(moveToY - currentY));
 
-		for(int i=1; i<abs(position.xpos - moveToPosition.xpos); ++i)
+		for(int i=1; i<abs(currentX - moveToX); ++i)
 		{
-		    Position newPosition(position.xpos + xIncrement*i, position.ypos + yIncrement*i);
+		    Position newPosition(currentX + xIncrement*i, currentY + yIncrement*i);
 			if(board.getFigure(newPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
             }
 		}
+
         isValid = true;
     }
 

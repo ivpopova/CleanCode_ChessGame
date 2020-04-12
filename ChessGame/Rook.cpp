@@ -33,14 +33,14 @@ bool Rook::isValidMove(Position moveToPosition, Figure* figure)
     }
 
 
-    if((moveToPosition.ypos == position.ypos))
+    if((moveToPosition.y == position.y))
     {
-        int xIncrement = (moveToPosition.xpos - position.xpos) / (abs(moveToPosition.xpos - position.xpos));
-        for(int i=position.xpos + xIncrement; i!=moveToPosition.xpos; i+=xIncrement)
+        int xIncrement = (moveToPosition.x - position.x) / (abs(moveToPosition.x - position.x));
+        for(int i=position.x + xIncrement; i!=moveToPosition.x; i+=xIncrement)
         {
             Position newPos;
-            newPos.xpos = i;
-            newPos.ypos = moveToPosition.ypos;
+            newPos.x = i;
+            newPos.y = moveToPosition.y;
             if(board.getFigure(newPos) != nullptr)
             {
                 isValid = false;
@@ -51,12 +51,12 @@ bool Rook::isValidMove(Position moveToPosition, Figure* figure)
     }
 
     
-    if((moveToPosition.xpos == position.xpos))
+    if((moveToPosition.x == position.x))
     {
-        int yIncrement = (moveToPosition.ypos - position.ypos) / (abs(moveToPosition.ypos - position.ypos));
-        for(int i=position.ypos+yIncrement; i!=moveToPosition.ypos; i+=yIncrement)
+        int yIncrement = (moveToPosition.y - position.y) / (abs(moveToPosition.y - position.y));
+        for(int i=position.y+yIncrement; i!=moveToPosition.y; i+=yIncrement)
         {
-            Position newPos(moveToPosition.xpos, i);
+            Position newPos(moveToPosition.x, i);
             if(board.getFigure(newPos) != nullptr)
             {
                 isValid = false;
