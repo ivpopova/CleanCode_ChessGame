@@ -13,7 +13,7 @@ Pawn::Pawn(Color color, Position position)
     this->type = "P";
     this->color = color;
     this->position = position;
-    this->doubleJumpAvailable = true;
+    this->isDoubleJumpAvailable = true;
 }
 
 
@@ -23,7 +23,7 @@ Pawn::~Pawn()
 Figure* Pawn::promote(Position position)
 {
     std::string input;
-    Figure* piece = nullptr;
+    Figure* figure = nullptr;
     std::cout << "Choose with witch piece to replace this pawn (Q - Queen, R - Rook, N - Knight, B - Bishop)";
     while(std::cin >> input)
     {
@@ -31,61 +31,61 @@ Figure* Pawn::promote(Position position)
         {
             if(color == Color::White)
             {
-                piece = new Queen(Color::White, position);
+                figure = new Queen(Color::White, position);
             }
             else
             {
-                piece = new Queen(Color::Black, position);
+                figure = new Queen(Color::Black, position);
             }
-            board.changeFigure(position, piece);
-            return piece;
+            board.changeFigure(position, figure);
+            return figure;
         }
         if(input == "R"|| input == "r")
         {
             if(color == Color::White)
             {
-                piece = new Rook(Color::White, position);
+                figure = new Rook(Color::White, position);
             }
             else
             {
-                piece = new Rook(Color::Black, position);
+                figure = new Rook(Color::Black, position);
             }
-            board.changeFigure(position, piece);
-            return piece;
+            board.changeFigure(position, figure);
+            return figure;
         }
         if(input == "N" || input == "n")
         {
             if(color == Color::White)
             {
-                 piece = new Knight(Color::White, position);
+                 figure = new Knight(Color::White, position);
             }
             else
             {
-                 piece = new Knight(Color::Black, position);
+                 figure = new Knight(Color::Black, position);
             }
-            board.changeFigure(position, piece);
-            return piece;
+            board.changeFigure(position, figure);
+            return figure;
         }
         if(input == "B" || input == "b")
         {
             if(color == Color::White)
             {
-                piece = new Bishop(Color::White, position);
+                figure = new Bishop(Color::White, position);
             }
             else
             {
-                 piece = new Bishop(Color::Black, position);
+                 figure = new Bishop(Color::Black, position);
             }
-            board.changeFigure(position, piece);
-            return piece;
+            board.changeFigure(position, figure);
+            return figure;
         }
         std::cout << "Invalid choice, choose again (Q - Queen, R - Rook, N - Knight, B - Bishop)";
     }
-    return piece;
+    return figure;
 }
 
 
-bool Pawn::isValidMove(Position moveToPosition, Figure* figure)
+bool Pawn::isValidMove(Position newPosition, Figure* figure)
 {
     bool isValid = false;
 
@@ -100,38 +100,38 @@ bool Pawn::isValidMove(Position moveToPosition, Figure* figure)
 
     Position moveToPosTemp(position.y + allowableMove1, position.x);
 
-    if(moveToPosition.y == (position.y + allowableMove1) && moveToPosition.x == position.x && board.getFigure(moveToPosition) == nullptr)
+    if(newPosition.y == (position.y + allowableMove1) && newPosition.x == position.x && board.getFigure(newPosition) == nullptr)
     {
         //pawn promotion
-        if(moveToPosition.y == 7 || moveToPosition.y == 0)
+        if(newPosition.y == 7 || newPosition.y == 0)
         {
-            figure = promote(moveToPosition);
+            figure = promote(newPosition);
         }
         isValid = true;
-        doubleJumpAvailable = false;
+        isDoubleJumpAvailable = false;
     }
-    else if(doubleJumpAvailable == true && moveToPosition.y == (position.y + allowableMove2) && moveToPosition.x == position.x
-            && board.getFigure(moveToPosition) == nullptr && board.getFigure(moveToPosTemp) == nullptr)
+    else if(isDoubleJumpAvailable == true && newPosition.y == (position.y + allowableMove2) && newPosition.x == position.x
+            && board.getFigure(newPosition) == nullptr && board.getFigure(moveToPosTemp) == nullptr)
     {
         isValid = true;
-        doubleJumpAvailable = false;
+        isDoubleJumpAvailable = false;
     }
-    else if(moveToPosition.y == position.y + allowableMove1 && (moveToPosition.x == position.x - 1 || moveToPosition.x == position.x + 1))
+    else if(newPosition.y == position.y + allowableMove1 && (newPosition.x == position.x - 1 || newPosition.x == position.x + 1))
     {
         //check if there is a piece of the opposite color
-        if(board.getFigure(moveToPosition) != nullptr && (board.getFigure(moveToPosition)->getColor() != this->color))
+        if(board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->color))
         {
-            if(moveToPosition.y == 7 || moveToPosition.y == 0)
+            if(newPosition.y == 7 || newPosition.y == 0)
             {
-                figure = promote(moveToPosition);
+                figure = promote(newPosition);
                 figure->print();
             }
             isValid = true;
-            doubleJumpAvailable = false;
+            isDoubleJumpAvailable = false;
         }
     }
 
-    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }

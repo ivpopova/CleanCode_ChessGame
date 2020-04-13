@@ -10,8 +10,8 @@ public:
     Square();
     virtual ~Square();
 
-    Figure* getFigure();
-    void setFigure(Figure *figure);
-    void clear();
+    Figure* getFigure() const;
+    void setFigure(Figure* figure);
+    void clearFigure();
     void print();
 };

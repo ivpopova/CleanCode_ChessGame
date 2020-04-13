@@ -14,9 +14,9 @@ Queen::~Queen()
 {
 }
 
-bool Queen::isValidMove(Position moveToPosition, Figure* figure)
+bool Queen::isValidMove(Position newPosition, Figure* figure)
 {
-    if(Bishop::isValidMove(moveToPosition, figure) || Rook::isValidMove(moveToPosition, figure))
+    if(Bishop::isValidMove(newPosition, figure) || Rook::isValidMove(newPosition, figure))
     {
         return true;
     }

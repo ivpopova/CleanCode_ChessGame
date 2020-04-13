@@ -7,6 +7,6 @@ public:
     Bishop(Color color, Position position);
     ~Bishop();
 
-    bool isValidMove(Position moveToPosition, Figure* figure);
+    bool isValidMove(Position newPosition, Figure* figure) override;
 };
 

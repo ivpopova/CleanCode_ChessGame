@@ -17,12 +17,12 @@ Rook::~Rook()
 }
 
 
-bool Rook::isValidMove(Position moveToPosition, Figure* figure)
+bool Rook::isValidMove(Position newPosition, Figure* figure)
 {
     bool isValid = false;
 
-    if((board.getFigure(moveToPosition) == nullptr) ||
-       (board.getFigure(moveToPosition) != nullptr && (board.getFigure(moveToPosition)->getColor() != this->color)))
+    if((board.getFigure(newPosition) == nullptr) ||
+       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->color)))
     {
         isValid = true;
     }
@@ -33,14 +33,14 @@ bool Rook::isValidMove(Position moveToPosition, Figure* figure)
     }
 
 
-    if((moveToPosition.y == position.y))
+    if((newPosition.y == position.y))
     {
-        int xIncrement = (moveToPosition.x - position.x) / (abs(moveToPosition.x - position.x));
-        for(int i=position.x + xIncrement; i!=moveToPosition.x; i+=xIncrement)
+        int xIncrement = (newPosition.x - position.x) / (abs(newPosition.x - position.x));
+        for(int i=position.x + xIncrement; i!=newPosition.x; i+=xIncrement)
         {
             Position newPos;
             newPos.x = i;
-            newPos.y = moveToPosition.y;
+            newPos.y = newPosition.y;
             if(board.getFigure(newPos) != nullptr)
             {
                 isValid = false;
@@ -51,12 +51,12 @@ bool Rook::isValidMove(Position moveToPosition, Figure* figure)
     }
 
     
-    if((moveToPosition.x == position.x))
+    if((newPosition.x == position.x))
     {
-        int yIncrement = (moveToPosition.y - position.y) / (abs(moveToPosition.y - position.y));
-        for(int i=position.y+yIncrement; i!=moveToPosition.y; i+=yIncrement)
+        int yIncrement = (newPosition.y - position.y) / (abs(newPosition.y - position.y));
+        for(int i=position.y+yIncrement; i!=newPosition.y; i+=yIncrement)
         {
-            Position newPos(moveToPosition.x, i);
+            Position newPos(newPosition.x, i);
             if(board.getFigure(newPos) != nullptr)
             {
                 isValid = false;
@@ -66,7 +66,7 @@ bool Rook::isValidMove(Position moveToPosition, Figure* figure)
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }

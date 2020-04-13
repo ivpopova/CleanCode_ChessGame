@@ -18,34 +18,33 @@ Bishop::~Bishop()
 { }
 
 
-bool Bishop::isValidMove(Position moveToPosition, Figure* figure)
+bool Bishop::isValidMove(Position newPosition, Figure* figure)
 {
     bool isValid = false;
     
 
-    if((board.getFigure(moveToPosition) == nullptr) ||
-       ((board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getColor() != this->color)))
+    if((board.getFigure(newPosition) == nullptr) ||
+       ((board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getColor() != this->color)))
     {
         isValid = true;
     }
     else
     {
-        isValid = false;
         return isValid;
     }
 
     int currentX = position.x;
     int currentY = position.y;
-    int moveToX = moveToPosition.x;
-    int moveToY = moveToPosition.y;
+    int newX = newPosition.x;
+    int newY = newPosition.y;
 
-    if(abs(currentY - moveToY) == abs(currentX - moveToX))
+    if(abs(currentY - newY) == abs(currentX - newX))
     {
         //cannot jump over other pieces
-        int xIncrement = (moveToX - currentX) / (abs(moveToX - currentX));
-		int yIncrement = (moveToY - currentY) / (abs(moveToY - currentY));
+        int xIncrement = (newX - currentX) / (abs(newX - currentX));
+		int yIncrement = (newY - currentY) / (abs(newY - currentY));
 
-		for(int i=1; i<abs(currentX - moveToX); ++i)
+		for(int i=1; i<abs(currentX - newX); ++i)
 		{
 		    Position newPosition(currentX + xIncrement*i, currentY + yIncrement*i);
 			if(board.getFigure(newPosition) != nullptr)
@@ -58,7 +57,7 @@ bool Bishop::isValidMove(Position moveToPosition, Figure* figure)
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(moveToPosition) != nullptr) && (board.getFigure(moveToPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
     {
         std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }

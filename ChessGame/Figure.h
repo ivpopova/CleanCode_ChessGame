@@ -30,6 +30,6 @@ public:
     Color getColor() const;
     std::string getType() const ;
 
-    virtual bool isValidMove(Position moveToPosition, Figure* figure) = 0;
+    virtual bool isValidMove(Position newPosition, Figure* figure) = 0;
     virtual ~Figure();
 };

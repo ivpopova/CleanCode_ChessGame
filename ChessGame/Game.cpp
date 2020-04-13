@@ -1,7 +1,4 @@
-#include <iostream>
-#include <cstring>
 #include "Game.h"
-#include "Board.h"
 
 
 extern Board board; //board is declared in the main and extern lets compiler know this
@@ -10,7 +7,7 @@ extern Board board; //board is declared in the main and extern lets compiler kno
  Game::Game()
  {
      colorOnTurn = Color::White;
-     moveSucceed = false;
+     isMoveSuccessful = false;
  }
 
 
@@ -68,18 +65,18 @@ bool Game::isValidInput()
     }
 
     //check if from position is within the chess board
-    if(moveFrom.x < 0 || moveFrom.x > 7 || moveFrom.y < 0 || moveFrom.y > 7)
+    if(currentPosition.x < 0 || currentPosition.x > 7 || currentPosition.y < 0 || currentPosition.y > 7)
     {
         std::cout << "Source location out of the chess board\n";
         return false;
     }
     //check if to position is within the chess board
-    if(moveTo.x < 0 || moveTo.x > 7 || moveTo.y < 0 || moveTo.y > 7)
+    if(newPosition.x < 0 || newPosition.x > 7 || newPosition.y < 0 || newPosition.y > 7)
     {
         std::cout << "Destination location out of the chess board\n";
         return false;
     }
-    if(board.getFigure(moveFrom) == nullptr)
+    if(board.getFigure(currentPosition) == nullptr)
     {
         std::cout << "There is no piece on this source location on the chess board\n";
         return false;
@@ -128,23 +125,23 @@ void Game::startNewGame()
                     std::cin >> input2;
                     toLowerCaseInput(&input2);
                 }
-                moveFrom = convertChessNotation(input1);
-                moveTo = convertChessNotation(input2);
+                currentPosition = convertChessNotation(input1);
+                newPosition = convertChessNotation(input2);
             }
             //validate the input; if invalid - new input
             while(!isValidInput());
 
             //check that the right colored piece is selected
-            if(board.getFigure(moveFrom)->getColor() != colorOnTurn)
+            if(board.getFigure(currentPosition)->getColor() != colorOnTurn)
             {
                 std::cout << "Move Invalid: Wrong color piece selected\n";
-                moveSucceed = false;
+                isMoveSuccessful = false;
             }
             else
             {
                 //validate the specific chess piece rules
-                moveSucceed = board.moveFigure(moveFrom, moveTo);
-                if(moveSucceed == false)
+                isMoveSuccessful = board.moveFigure(currentPosition, newPosition);
+                if(isMoveSuccessful == false)
                 {
                     std::cout << "Invalid move!\n";
                 }
@@ -155,7 +152,7 @@ void Game::startNewGame()
             }
         }
         //if move failed, loop back without redrawing board
-        while(moveSucceed == false);
+        while(isMoveSuccessful == false);
 
         //If move succeeded, change who is on turn.
         colorOnTurn = (colorOnTurn == Color::White) ? Color::Black : Color::White;

@@ -7,5 +7,5 @@ public:
     King(Color color, Position position);
     ~King();
 
-    bool isValidMove(Position moveToPosition, Figure* figure);
+    bool isValidMove(Position newPosition, Figure* figure) override;
 };

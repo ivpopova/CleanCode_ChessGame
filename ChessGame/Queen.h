@@ -9,6 +9,6 @@ public:
     Queen(Color color, Position position);
     ~Queen();
 
-    bool isValidMove(Position moveToPosition, Figure* figure);
+    bool isValidMove(Position newPosition, Figure* figure) override;
 };
 

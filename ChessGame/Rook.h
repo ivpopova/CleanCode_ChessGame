@@ -7,5 +7,5 @@ public:
     Rook(Color color, Position position);
     ~Rook();
 
-    bool isValidMove(Position moveToPosition, Figure* figure);
+    bool isValidMove(Position newPosition, Figure* figure) override;
 };

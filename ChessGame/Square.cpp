@@ -9,7 +9,7 @@ Square::Square()
 Square::~Square()
 { }
 
-Figure* Square::getFigure()
+Figure* Square::getFigure() const
 {
     return chessFigure;
 }
@@ -21,7 +21,7 @@ void Square::setFigure(Figure* figure)
 }
 
 
-void Square::clear()
+void Square::clearFigure()
 {
     this->chessFigure = nullptr;
 }

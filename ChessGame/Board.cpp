@@ -68,7 +68,7 @@ void Board::print()
 
 void Board::changeFigure(Position position, Figure* figure)
 {
-    board[position.y][position.x].clear();
+    board[position.y][position.x].clearFigure();
     board[position.y][position.x].setFigure(figure);
 }
 
@@ -145,24 +145,24 @@ void Board::initializeFigures()
 }
 
 
-bool Board::moveFigure(Position fromPosition, Position toPosition)
+bool Board::moveFigure(Position currentPosition, Position newPosition)
 {
-    bool moveCompleted = false;
+    bool isMoveCompleted = false;
 
-    Figure* piece = board[fromPosition.y][fromPosition.x].getFigure();
+    Figure* figure = board[currentPosition.y][currentPosition.x].getFigure();
 
     //check weather we can make this move - is there a piece, is it possible this piece to make this move, is it within the board
-    if(piece != nullptr && piece->isValidMove(toPosition, piece) && isWithinBoard(toPosition))
+    if(figure != nullptr && figure->isValidMove(newPosition, figure) && isWithinBoard(newPosition))
     {
-        piece->print();
-        piece->setPosition(toPosition);
-        board[toPosition.y][toPosition.x].setFigure(piece);
-        board[fromPosition.y][fromPosition.x].clear();
+        figure->print();
+        figure->setPosition(newPosition);
+        board[newPosition.y][newPosition.x].setFigure(figure);
+        board[currentPosition.y][currentPosition.x].clearFigure();
 
-        moveCompleted = true;
+        isMoveCompleted = true;
     }
 
-    return moveCompleted;
+    return isMoveCompleted;
 }
 
 

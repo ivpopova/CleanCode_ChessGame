@@ -4,12 +4,12 @@
 class Pawn: public Figure
 {
 private:
-    bool doubleJumpAvailable;
+    bool isDoubleJumpAvailable;
 public:
     Pawn(Color color, Position position);
     ~Pawn();
 
-    bool isValidMove(Position moveToPosition, Figure* figure);
+    bool isValidMove(Position newPosition, Figure* figure) override;
     Figure* promote(Position position);
 };
 
