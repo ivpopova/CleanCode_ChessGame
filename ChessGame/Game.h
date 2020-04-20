@@ -8,12 +8,13 @@ private:
     Color colorOnTurn;
     bool isMoveSuccessful;
     Position currentPosition;
-    Position newPosition;
+    Position nextPosition;
 
-    void displayIntro();
-    void displayInstructions();
+    void displayIntro() const;
+    void displayInstructions() const;
     void toLowerCaseInput(std::string* str);
     bool isValidInput();
+    void changeTurn();
 
 public:
     Game();

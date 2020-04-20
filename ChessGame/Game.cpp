@@ -1,8 +1,7 @@
 #include "Game.h"
 
 
-extern Board board; //board is declared in the main and extern lets compiler know this
-
+extern Board board; 
 
  Game::Game()
  {
@@ -15,7 +14,7 @@ extern Board board; //board is declared in the main and extern lets compiler kno
  {}
 
  
-void Game::displayInstructions()
+void Game::displayInstructions() const
 {
     std::cout << "\n\tInstructions:\n"
               << "\tTo move chess pieces use standard chess notation.\n"
@@ -25,7 +24,7 @@ void Game::displayInstructions()
 }
 
 
-void Game::displayIntro()
+void Game::displayIntro() const
 {
     std::cout << "\n\n\t\t\tCHESS GAME\n\n";
     displayInstructions();
@@ -48,9 +47,9 @@ Position convertChessNotation(std::string moveInputStr)
     Position movePosition;
 
     //cast to an int, and subtract 97 to make ASCII
-    movePosition.x = (int) moveInputStr[0] - 97;
+    movePosition.setX((int)moveInputStr[0] - 97);
     //subtract 1 to make 0 based
-    movePosition.y = atoi(&moveInputStr[1]) - 1;
+    movePosition.setY( atoi(&moveInputStr[1]) - 1);
 
     return movePosition;
 }
@@ -65,13 +64,13 @@ bool Game::isValidInput()
     }
 
     //check if from position is within the chess board
-    if(currentPosition.x < 0 || currentPosition.x > 7 || currentPosition.y < 0 || currentPosition.y > 7)
+    if(currentPosition.getX() < 0 || currentPosition.getX() > 7 || currentPosition.getY() < 0 || currentPosition.getY() > 7)
     {
         std::cout << "Source location out of the chess board\n";
         return false;
     }
     //check if to position is within the chess board
-    if(newPosition.x < 0 || newPosition.x > 7 || newPosition.y < 0 || newPosition.y > 7)
+    if(nextPosition.getX() < 0 || nextPosition.getX() > 7 || nextPosition.getY() < 0 || nextPosition.getY() > 7)
     {
         std::cout << "Destination location out of the chess board\n";
         return false;
@@ -81,7 +80,13 @@ bool Game::isValidInput()
         std::cout << "There is no piece on this source location on the chess board\n";
         return false;
     }
+
     return true;
+}
+
+void Game::changeTurn()
+{
+    colorOnTurn = (colorOnTurn == Color::White) ? Color::Black : Color::White;
 }
 
 void Game::startNewGame()
@@ -92,7 +97,7 @@ void Game::startNewGame()
     while(input1 != "quit")
     {
         std::cout << "\n\n\n\n";
-        board.print();
+        board.printBoard();
 
         do{
             if(colorOnTurn == Color::White)
@@ -126,7 +131,7 @@ void Game::startNewGame()
                     toLowerCaseInput(&input2);
                 }
                 currentPosition = convertChessNotation(input1);
-                newPosition = convertChessNotation(input2);
+                nextPosition = convertChessNotation(input2);
             }
             //validate the input; if invalid - new input
             while(!isValidInput());
@@ -140,7 +145,7 @@ void Game::startNewGame()
             else
             {
                 //validate the specific chess piece rules
-                isMoveSuccessful = board.moveFigure(currentPosition, newPosition);
+                isMoveSuccessful = board.moveFigure(currentPosition, nextPosition);
                 if(isMoveSuccessful == false)
                 {
                     std::cout << "Invalid move!\n";
@@ -153,9 +158,7 @@ void Game::startNewGame()
         }
         //if move failed, loop back without redrawing board
         while(isMoveSuccessful == false);
-
-        //If move succeeded, change who is on turn.
-        colorOnTurn = (colorOnTurn == Color::White) ? Color::Black : Color::White;
+        changeTurn();
     }
 }
 
