@@ -8,22 +8,22 @@ extern Board board;
 
 Knight::Knight(Color color, Position position)
 {
-    this->type = "N";
-    this->color = color;
-    this->position = position;
+    setTypeFigure("N");
+    setColor(color);
+    setPosition(position);
 }
 
 
 Knight::~Knight()
 { }
 
-bool Knight::isValidMove(Position newPosition, Figure* figure)
+bool Knight::isValidMove(Position position, Figure* figure)
 {
     bool isValid = false;
 
     //check if it's possible to move the knight to this square
-    if((board.getFigure(newPosition) == nullptr) ||
-       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->color)))
+    if((board.getFigure(position) == nullptr) ||
+       (board.getFigure(position) != nullptr && (board.getFigure(position)->getColor() != this->getColor())))
     {
         isValid = true;
     }
@@ -32,15 +32,15 @@ bool Knight::isValidMove(Position newPosition, Figure* figure)
         return isValid;
     }
 
-    if(((abs(position.x - newPosition.x) == 2) && (abs(position.y - newPosition.y) == 1)) ||
-       ((abs(position.x - newPosition.x) == 1) && (abs(position.y  - newPosition.y) == 2)))
+    if(((abs(getCurrentPosition().getX() - position.getX()) == 2) && (abs(getCurrentPosition().getY() - position.getY()) == 1)) ||
+       ((abs(getCurrentPosition().getX() - position.getX()) == 1) && (abs(getCurrentPosition().getY() - position.getY()) == 2)))
     {
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
     {
-        std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
+        std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
     return isValid;

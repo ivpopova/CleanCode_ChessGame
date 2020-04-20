@@ -7,22 +7,22 @@ extern Board board;
 
 King::King(Color color, Position position)
 {
-    this->type = "K";
-    this->color = color;
-    this->position = position;
+    setTypeFigure("K");
+    setColor(color);
+    setPosition(position);
 }
 
 King::~King()
 { }
 
 
-bool King::isValidMove(Position newPosition, Figure* figure)
+bool King::isValidMove(Position position, Figure* figure)
 {
  bool isValid = false;
 
     //check if it's possible to move the king to this square
-    if((board.getFigure(newPosition) == nullptr) ||
-       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->color)))
+    if((board.getFigure(position) == nullptr) ||
+       (board.getFigure(position) != nullptr && (board.getFigure(position)->getColor() != this->getColor())))
     {
         isValid = true;
     }
@@ -32,37 +32,37 @@ bool King::isValidMove(Position newPosition, Figure* figure)
     }
 
     //(x-1,y+1), (x,y+1), (x+1,y+1),
-    if(newPosition.y == (position.y + 1) && newPosition.x == (position.x - 1))
+    if(position.getY() == (getCurrentPosition().getY() + 1) && position.getX() == (getCurrentPosition().getX() - 1))
     {
         isValid = true;
     }
-    else if(newPosition.y == (position.y + 1) && newPosition.x == position.x)
+    else if(position.getY() == (getCurrentPosition().getY() + 1) && position.getX() == getCurrentPosition().getX())
     {
         isValid = true;
     }
-    else if(newPosition.y == (position.y + 1) && newPosition.x == (position.x + 1))
+    else if(position.getY() == (getCurrentPosition().getY() + 1) && position.getX() == (getCurrentPosition().getX() + 1))
     {
         isValid = true;
     }
     //(x-1,y), (x+1,y),
-    else if(newPosition.y == position.y && newPosition.x == (position.x - 1))
+    else if(position.getY() == getCurrentPosition().getY() && position.getX() == (getCurrentPosition().getX() - 1))
     {
         isValid = true;
     }
-    else if(newPosition.y == position.y && newPosition.x == (position.x + 1))
+    else if(position.getY() == getCurrentPosition().getY() && position.getX() == (getCurrentPosition().getX() + 1))
     {
         isValid = true;
     }
     //(x-1,y-1), (x,y-1), (x+1,y-1),
-    else if(newPosition.y == (position.y - 1) && newPosition.x == (position.x - 1))
+    else if(position.getY() == (getCurrentPosition().getY() - 1) && position.getX() == (getCurrentPosition().getX()  - 1))
     {
         isValid = true;
     }
-    else if(newPosition.y == (position.y - 1) && newPosition.x == position.x)
+    else if(position.getY() == (getCurrentPosition().getY() - 1) && position.getX() == getCurrentPosition().getX())
     {
         isValid = true;
     }
-    else if(newPosition.y == (position.y - 1) && newPosition.x == (position.x + 1))
+    else if(position.getY() == (getCurrentPosition().getY() - 1) && position.getX() == (getCurrentPosition().getX() + 1))
     {
         isValid = true;
     }
@@ -71,9 +71,9 @@ bool King::isValidMove(Position newPosition, Figure* figure)
         isValid = false;
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
     {
-        std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
+        std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
     return isValid;

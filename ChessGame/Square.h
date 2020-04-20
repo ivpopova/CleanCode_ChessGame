@@ -4,7 +4,7 @@
 class Square
 {
 private:
-    Figure *chessFigure;
+    Figure *chessFigure=nullptr;
 
 public:
     Square();

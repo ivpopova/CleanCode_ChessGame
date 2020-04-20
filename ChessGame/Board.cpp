@@ -34,6 +34,7 @@ void Board::printBoard()
         for(int col=0; col< BOARD_SIZE; ++col)
         {
             std::cout << "| ";
+
             Figure *currentFigure = board[row][col].getFigure();
             if(currentFigure != nullptr)
             {
@@ -178,5 +179,6 @@ bool Board::isWithinBoard(Position position)
     {
         return true;
     }
+
     return false;
 }

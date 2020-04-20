@@ -8,6 +8,6 @@ public:
     Knight(Color color, Position position);
     ~Knight();
 
-    bool isValidMove(Position newPosition, Figure* figure) override;
+    bool isValidMove(Position position, Figure* figure) override;
 };
 

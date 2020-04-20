@@ -3,7 +3,6 @@
 
 Square::Square()
 {
-    chessFigure = nullptr;
 }
 
 Square::~Square()

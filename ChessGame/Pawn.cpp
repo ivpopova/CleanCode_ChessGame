@@ -10,9 +10,9 @@ extern Board board;
 
 Pawn::Pawn(Color color, Position position)
 {
-    this->type = "P";
-    this->color = color;
-    this->position = position;
+    setTypeFigure("P");
+    setColor(color);
+    setPosition(position);
     this->isDoubleJumpAvailable = true;
 }
 
@@ -24,12 +24,12 @@ Figure* Pawn::promote(Position position)
 {
     std::string input;
     Figure* figure = nullptr;
-    std::cout << "Choose with witch piece to replace this pawn (Q - Queen, R - Rook, N - Knight, B - Bishop)";
+    std::cout << "Choose with which piece to replace this pawn (Q - Queen, R - Rook, N - Knight, B - Bishop)";
     while(std::cin >> input)
     {
         if(input == "Q" || input == "q")
         {
-            if(color == Color::White)
+            if(getColor() == Color::White)
             {
                 figure = new Queen(Color::White, position);
             }
@@ -42,7 +42,7 @@ Figure* Pawn::promote(Position position)
         }
         if(input == "R"|| input == "r")
         {
-            if(color == Color::White)
+            if(getColor() == Color::White)
             {
                 figure = new Rook(Color::White, position);
             }
@@ -55,7 +55,7 @@ Figure* Pawn::promote(Position position)
         }
         if(input == "N" || input == "n")
         {
-            if(color == Color::White)
+            if(getColor() == Color::White)
             {
                  figure = new Knight(Color::White, position);
             }
@@ -68,7 +68,7 @@ Figure* Pawn::promote(Position position)
         }
         if(input == "B" || input == "b")
         {
-            if(color == Color::White)
+            if(getColor() == Color::White)
             {
                 figure = new Bishop(Color::White, position);
             }
@@ -85,56 +85,60 @@ Figure* Pawn::promote(Position position)
 }
 
 
-bool Pawn::isValidMove(Position newPosition, Figure* figure)
+bool Pawn::isValidMove(Position position, Figure* figure)
 {
     bool isValid = false;
 
     int allowableMove1 = 1;
     int allowableMove2 = 2;
+
     //if black on turn, the movement is downwards on board
-    if(color == Color::Black)
+    if(getColor() == Color::Black)
     {
         allowableMove1 = -1;
         allowableMove2 = -2;
     }
 
-    Position moveToPosTemp(position.y + allowableMove1, position.x);
+    Position newPositionTemp(getCurrentPosition().getY() + allowableMove1, getCurrentPosition().getX());
 
-    if(newPosition.y == (position.y + allowableMove1) && newPosition.x == position.x && board.getFigure(newPosition) == nullptr)
+    if(position.getY() == (getCurrentPosition().getY() + allowableMove1) && position.getX() == getCurrentPosition().getX() && board.getFigure(position) == nullptr)
     {
         //pawn promotion
-        if(newPosition.y == 7 || newPosition.y == 0)
+        if(position.getY() == 7 || position.getY() == 0)
         {
-            figure = promote(newPosition);
+            figure = promote(position);
         }
+
         isValid = true;
         isDoubleJumpAvailable = false;
     }
-    else if(isDoubleJumpAvailable == true && newPosition.y == (position.y + allowableMove2) && newPosition.x == position.x
-            && board.getFigure(newPosition) == nullptr && board.getFigure(moveToPosTemp) == nullptr)
+    else if(isDoubleJumpAvailable == true && position.getY() == (getCurrentPosition().getY() + allowableMove2) && position.getX() == getCurrentPosition().getX()
+            && board.getFigure(position) == nullptr && board.getFigure(newPositionTemp) == nullptr)
     {
         isValid = true;
         isDoubleJumpAvailable = false;
     }
-    else if(newPosition.y == position.y + allowableMove1 && (newPosition.x == position.x - 1 || newPosition.x == position.x + 1))
+    else if(position.getY() == getCurrentPosition().getY() + allowableMove1 && (position.getX() == getCurrentPosition().getX() - 1 || position.getX() == getCurrentPosition().getX() + 1))
     {
         //check if there is a piece of the opposite color
-        if(board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->color))
+        if(board.getFigure(position) != nullptr && (board.getFigure(position)->getColor() != this->getColor()))
         {
-            if(newPosition.y == 7 || newPosition.y == 0)
+            if(position.getY() == 7 || position.getY() == 0)
             {
-                figure = promote(newPosition);
+                figure = promote(position);
                 figure->print();
             }
+
             isValid = true;
             isDoubleJumpAvailable = false;
         }
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
     {
-        std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
+        std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
+
 
     return isValid;
 }

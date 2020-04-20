@@ -9,7 +9,7 @@ public:
     Pawn(Color color, Position position);
     ~Pawn();
 
-    bool isValidMove(Position newPosition, Figure* figure) override;
+    bool isValidMove(Position position, Figure* figure) override;
     Figure* promote(Position position);
 };
 

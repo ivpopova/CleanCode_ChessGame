@@ -6,9 +6,9 @@ extern Board board;
 
 Rook::Rook(Color color, Position position)
 {
-    this->type = "R";
-    this->color = color;
-    this->position = position;
+    setTypeFigure("R");
+    setColor(color);
+    setPosition(position);
 }
 
 
@@ -17,31 +17,29 @@ Rook::~Rook()
 }
 
 
-bool Rook::isValidMove(Position newPosition, Figure* figure)
+bool Rook::isValidMove(Position position, Figure* figure)
 {
     bool isValid = false;
 
-    if((board.getFigure(newPosition) == nullptr) ||
-       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->color)))
+    if((board.getFigure(position) == nullptr) ||
+       (board.getFigure(position) != nullptr && (board.getFigure(position)->getColor() != this->getColor())))
     {
         isValid = true;
     }
-    else
-    {
-        isValid = false;
+    else {
         return isValid;
     }
 
 
-    if((newPosition.y == position.y))
+    if((position.getY() == getCurrentPosition().getY()))
     {
-        int xIncrement = (newPosition.x - position.x) / (abs(newPosition.x - position.x));
-        for(int i=position.x + xIncrement; i!=newPosition.x; i+=xIncrement)
+        int xIncrement = (position.getX() - getCurrentPosition().getX()) / (abs(position.getX() - getCurrentPosition().getX()));
+        for(int i= getCurrentPosition().getX() + xIncrement; i!=position.getX(); i+=xIncrement)
         {
-            Position newPos;
-            newPos.x = i;
-            newPos.y = newPosition.y;
-            if(board.getFigure(newPos) != nullptr)
+            Position nextPosition;
+            nextPosition.setX (i);
+            nextPosition.setY(position.getY());
+            if(board.getFigure(nextPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
@@ -51,13 +49,13 @@ bool Rook::isValidMove(Position newPosition, Figure* figure)
     }
 
     
-    if((newPosition.x == position.x))
+    if((position.getX() == getCurrentPosition().getX()))
     {
-        int yIncrement = (newPosition.y - position.y) / (abs(newPosition.y - position.y));
-        for(int i=position.y+yIncrement; i!=newPosition.y; i+=yIncrement)
+        int yIncrement = (position.getY() - getCurrentPosition().getY()) / (abs(position.getY() - getCurrentPosition().getY()));
+        for(int i= getCurrentPosition().getY() +yIncrement; i!=position.getY(); i+=yIncrement)
         {
-            Position newPos(newPosition.x, i);
-            if(board.getFigure(newPos) != nullptr)
+            Position nextPosition(position.getX(), i);
+            if(board.getFigure(nextPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
@@ -66,9 +64,9 @@ bool Rook::isValidMove(Position newPosition, Figure* figure)
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
     {
-        std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
+        std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
     return isValid;
