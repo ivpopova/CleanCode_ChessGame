@@ -1,35 +1,28 @@
 #pragma once
 #include<iostream>
 #include <string>
-
-enum  Color { Black, White };
-
-struct Position
-{
-public:
-    int x;
-    int y;
-    Position(int x=-1, int y=-1): x(x), y(y) {}
-};
+#include"Color.h"
+#include"Position.h"
 
 class Figure
 {
-protected:
-    std::string type;
+private:
+    std::string typeFigure;
     Color color;
     Position position;
 
 public:
     Figure();
     
-
     void print();
     void setPosition(Position position);
+    void setColor(Color color);
+    void setTypeFigure(std::string typeFigure);
 
-    Position getPosition() const;
+    Position getCurrentPosition() const;
     Color getColor() const;
-    std::string getType() const ;
+    std::string getTypeFigure() const ;
 
-    virtual bool isValidMove(Position newPosition, Figure* figure) = 0;
+    virtual bool isValidMove(Position position, Figure* figure) = 0;
     virtual ~Figure();
 };

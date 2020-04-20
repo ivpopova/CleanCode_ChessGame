@@ -2,7 +2,7 @@
 
 Figure::Figure()
 {
-    type = " ";
+    typeFigure = " ";
 }
 
 void Figure::print()
@@ -15,7 +15,7 @@ void Figure::print()
     {
         std::cout << "w";
     }
-    std::cout << type;
+    std::cout << typeFigure;
 
 }
 
@@ -24,8 +24,18 @@ void Figure::setPosition(Position position)
     this->position = position;
 }
 
+void Figure::setColor(Color color)
+{
+    this->color = color;
+}
 
-Position Figure::getPosition() const
+void Figure::setTypeFigure(std::string typeFigure)
+{
+    this->typeFigure = typeFigure;
+}
+
+
+Position Figure::getCurrentPosition() const
 {
     return position;
 }
@@ -36,9 +46,9 @@ Color Figure::getColor() const
     return this->color;
 }
 
-std::string Figure::getType() const
+std::string Figure::getTypeFigure() const
 {
-    return type;
+    return typeFigure;
 }
 
 Figure::~Figure()
