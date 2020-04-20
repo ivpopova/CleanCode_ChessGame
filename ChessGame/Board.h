@@ -15,7 +15,7 @@ public:
     Board();
     virtual ~Board();
 
-    void print();
+    void printBoard();
     bool moveFigure(Position currentPosition, Position newPosition);
     void changeFigure(Position position, Figure* figure);
     Figure* getFigure(Position figurePosition);

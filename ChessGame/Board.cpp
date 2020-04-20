@@ -17,7 +17,7 @@ Board::Board()
 Board::~Board()
 { }
 
-void Board::print()
+void Board::printBoard()
 {
     //print horizontal divider for the top of the board
     for(int row = BOARD_SIZE-1; row >= 0; row--)
@@ -68,8 +68,8 @@ void Board::print()
 
 void Board::changeFigure(Position position, Figure* figure)
 {
-    board[position.y][position.x].clearFigure();
-    board[position.y][position.x].setFigure(figure);
+    board[position.getY()][position.getX()].clearFigure();
+    board[position.getY()][position.getX()].setFigure(figure);
 }
 
 
@@ -78,70 +78,70 @@ void Board::initializeFigures()
     // Pawns
     for(int col=0; col< BOARD_SIZE; ++col)
     {
-        Position blackPawnPos = {col,6};
-        board[blackPawnPos.y][blackPawnPos.x].setFigure(new Pawn(Black, blackPawnPos));
+        Position blackPawn(col,6);
+        board[blackPawn.getY()][blackPawn.getX()].setFigure(new Pawn(Black, blackPawn));
 
-        Position whitePawnPos = {col,1};
-        board[whitePawnPos.y][blackPawnPos.x].setFigure(new Pawn(White, whitePawnPos));
+        Position whitePawn(col,1);
+        board[whitePawn.getY()][blackPawn.getX()].setFigure(new Pawn(White, whitePawn));
     }
 
 
     // Rooks
-    Position whiteRookPos = {0,0};
-    board[whiteRookPos.y][whiteRookPos.x].setFigure(new Rook(White, whiteRookPos));
+    Position whiteLeftRook(0,0);
+    board[whiteLeftRook.getY()][whiteLeftRook.getX()].setFigure(new Rook(White, whiteLeftRook));
 
-    Position whiteRookPos2 = {7,0};
-    board[whiteRookPos2.y][whiteRookPos2.x].setFigure(new Rook(White, whiteRookPos2));
+    Position whiteRightRook (7,0);
+    board[whiteRightRook.getY()][whiteRightRook.getX()].setFigure(new Rook(White, whiteRightRook));
 
-    Position blackRookPos = {0,7};
-    board[blackRookPos.y][blackRookPos.x].setFigure(new Rook(Black, blackRookPos));
+    Position blackLeftRook (0,7);
+    board[blackLeftRook.getY()][blackLeftRook.getX()].setFigure(new Rook(Black, blackLeftRook));
 
-    Position blackRookPos2 = {7,7};
-    board[blackRookPos2.y][blackRookPos2.x].setFigure(new Rook(Black, blackRookPos2));
+    Position blackRightRook (7,7);
+    board[blackRightRook.getY()][blackRightRook.getX()].setFigure(new Rook(Black, blackRightRook));
 
 
     // Knights
-    Position whiteKnightPos = {1,0};
-    board[whiteKnightPos.y][whiteKnightPos.x].setFigure(new Knight(White, whiteKnightPos));
+    Position whiteLeftKnight (1,0);
+    board[whiteLeftKnight.getY()][whiteLeftKnight.getX()].setFigure(new Knight(White, whiteLeftKnight));
 
-    Position whiteKnightPos2 = {6,0};
-    board[whiteKnightPos2.y][whiteKnightPos2.x].setFigure(new Knight(White, whiteKnightPos2));
+    Position whiteRightKnight (6,0);
+    board[whiteRightKnight.getY()][whiteRightKnight.getX()].setFigure(new Knight(White, whiteRightKnight));
 
-    Position blackKnightPos = {1,7};
-    board[blackKnightPos.y][blackKnightPos.x].setFigure(new Knight(Black, blackKnightPos));
+    Position blackLeftKnight (1,7);
+    board[blackLeftKnight.getY()][blackLeftKnight.getX()].setFigure(new Knight(Black, blackLeftKnight));
 
-    Position blackKnightPos2 = {6,7};
-    board[blackKnightPos2.y][blackKnightPos2.x].setFigure(new Knight(Black, blackKnightPos2));
+    Position blackRightKnight (6,7);
+    board[blackRightKnight.getY()][blackRightKnight.getX()].setFigure(new Knight(Black, blackRightKnight));
 
 
     // Bishops
-    Position whiteBishopPos = {2,0};
-    board[whiteBishopPos.y][whiteBishopPos.x].setFigure(new Bishop(White, whiteBishopPos));
+    Position whiteLeftBishop (2,0);
+    board[whiteLeftBishop.getY()][whiteLeftBishop.getX()].setFigure(new Bishop(White, whiteLeftBishop));
 
-    Position whiteBishopPos2 = {5,0};
-    board[whiteBishopPos2.y][whiteBishopPos2.x].setFigure(new Bishop(White, whiteBishopPos2));
+    Position whiteRightBishop (5,0);
+    board[whiteRightBishop.getY()][whiteRightBishop.getX()].setFigure(new Bishop(White, whiteRightBishop));
 
-    Position blackBishopPos = {2,7};
-    board[blackBishopPos.y][blackBishopPos.x].setFigure(new Bishop(Black, blackBishopPos));
+    Position blackLeftBishop (2,7);
+    board[blackLeftBishop.getY()][blackLeftBishop.getX()].setFigure(new Bishop(Black, blackLeftBishop));
 
-    Position blackBishopPos2 = {5,7};
-    board[blackBishopPos2.y][blackBishopPos2.x].setFigure(new Bishop(Black, blackBishopPos2));
+    Position blackRightBishop (5,7);
+    board[blackRightBishop.getY()][blackRightBishop.getX()].setFigure(new Bishop(Black, blackRightBishop));
 
 
     // Kings
-    Position whiteKingPos = {4,0};
-    board[whiteKingPos.y][whiteKingPos.x].setFigure(new King(White, whiteKingPos));
+    Position whiteKing (4,0);
+    board[whiteKing.getY()][whiteKing.getX()].setFigure(new King(White, whiteKing));
 
-    Position blackKingPos = {4,7};
-    board[blackKingPos.y][blackKingPos.x].setFigure(new King(Black, blackKingPos));
+    Position blackKing (4,7);
+    board[blackKing.getY()][blackKing.getX()].setFigure(new King(Black, blackKing));
 
 
     // Queens
-    Position whiteQueenPos = {3,0};
-    board[whiteQueenPos.y][whiteQueenPos.x].setFigure(new Queen(White, whiteQueenPos));
+    Position whiteQueen (3,0);
+    board[whiteQueen.getY()][whiteQueen.getX()].setFigure(new Queen(White, whiteQueen));
 
-    Position blackQueenPos = {3,7};
-    board[blackQueenPos.y][blackQueenPos.x].setFigure(new Queen(Black, blackQueenPos));
+    Position blackQueen (3,7);
+    board[blackQueen.getY()][blackQueen.getX()].setFigure(new Queen(Black, blackQueen));
 }
 
 
@@ -149,15 +149,15 @@ bool Board::moveFigure(Position currentPosition, Position newPosition)
 {
     bool isMoveCompleted = false;
 
-    Figure* figure = board[currentPosition.y][currentPosition.x].getFigure();
+    Figure* figure = board[currentPosition.getY()][currentPosition.getX()].getFigure();
 
-    //check weather we can make this move - is there a piece, is it possible this piece to make this move, is it within the board
+    
     if(figure != nullptr && figure->isValidMove(newPosition, figure) && isWithinBoard(newPosition))
     {
         figure->print();
         figure->setPosition(newPosition);
-        board[newPosition.y][newPosition.x].setFigure(figure);
-        board[currentPosition.y][currentPosition.x].clearFigure();
+        board[newPosition.getY()][newPosition.getX()].setFigure(figure);
+        board[currentPosition.getY()][currentPosition.getX()].clearFigure();
 
         isMoveCompleted = true;
     }
@@ -168,13 +168,13 @@ bool Board::moveFigure(Position currentPosition, Position newPosition)
 
 Figure* Board::getFigure(Position figurePosition)
 {
-    return board[figurePosition.y][figurePosition.x].getFigure();
+    return board[figurePosition.getY()][figurePosition.getX()].getFigure();
 }
 
 
 bool Board::isWithinBoard(Position position)
 {
-    if((0 <= position.x && position.x <= 7) && (0 <= position.y && position.y <= 7))
+    if((0 <= position.getX() && position.getX() <= 7) && (0 <= position.getY() && position.getY() <= 7))
     {
         return true;
     }
