@@ -8,9 +8,9 @@ extern Board board;
 
 Bishop::Bishop(Color color, Position position)
 {
-    this->type = "B";
-    this->color = color;
-    this->position = position;
+    setTypeFigure("B");
+    setColor(color);
+    setPosition(position);
 }
 
 
@@ -18,13 +18,13 @@ Bishop::~Bishop()
 { }
 
 
-bool Bishop::isValidMove(Position newPosition, Figure* figure)
+bool Bishop::isValidMove(Position position, Figure* figure)
 {
     bool isValid = false;
     
 
-    if((board.getFigure(newPosition) == nullptr) ||
-       ((board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getColor() != this->color)))
+    if((board.getFigure(position) == nullptr) || ((board.getFigure(position) != nullptr) && 
+   (board.getFigure(position)->getColor() != this->getColor())))
     {
         isValid = true;
     }
@@ -33,10 +33,10 @@ bool Bishop::isValidMove(Position newPosition, Figure* figure)
         return isValid;
     }
 
-    int currentX = position.x;
-    int currentY = position.y;
-    int newX = newPosition.x;
-    int newY = newPosition.y;
+    int currentX = getCurrentPosition().getX();
+    int currentY = getCurrentPosition().getY();
+    int newX = position.getX();
+    int newY = position.getY();
 
     if(abs(currentY - newY) == abs(currentX - newX))
     {
@@ -46,8 +46,8 @@ bool Bishop::isValidMove(Position newPosition, Figure* figure)
 
 		for(int i=1; i<abs(currentX - newX); ++i)
 		{
-		    Position newPosition(currentX + xIncrement*i, currentY + yIncrement*i);
-			if(board.getFigure(newPosition) != nullptr)
+		    Position nextPosition(currentX + xIncrement*i, currentY + yIncrement*i);
+			if(board.getFigure(nextPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
@@ -57,9 +57,9 @@ bool Bishop::isValidMove(Position newPosition, Figure* figure)
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getType() == "K"))
+    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
     {
-        std::cout << ((this->color == Color::White) ? "White's " : "Black's ") << "king is checked!";
+        std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
     return isValid;
 }
