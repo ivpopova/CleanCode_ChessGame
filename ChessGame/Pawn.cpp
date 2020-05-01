@@ -85,7 +85,7 @@ Figure* Pawn::promote(Position position)
 }
 
 
-bool Pawn::isValidMove(Position position, Figure* figure)
+bool Pawn::isValidMove(Position newPosition, Figure* figure)
 {
     bool isValid = false;
 
@@ -99,33 +99,33 @@ bool Pawn::isValidMove(Position position, Figure* figure)
         allowableMove2 = -2;
     }
 
-    Position newPositionTemp(getCurrentPosition().getY() + allowableMove1, getCurrentPosition().getX());
+    Position stepBystepNewPosition(getCurrentPosition().getPositionY() + allowableMove1, getCurrentPosition().getPositionX());
 
-    if(position.getY() == (getCurrentPosition().getY() + allowableMove1) && position.getX() == getCurrentPosition().getX() && board.getFigure(position) == nullptr)
+    if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() + allowableMove1) && newPosition.getPositionX() == getCurrentPosition().getPositionX() && board.getFigure(newPosition) == nullptr)
     {
-        //pawn promotion
-        if(position.getY() == 7 || position.getY() == 0)
+      
+        if(newPosition.getPositionY() == 7 || newPosition.getPositionY() == 0)
         {
-            figure = promote(position);
+            figure = promote(newPosition);
         }
 
         isValid = true;
         isDoubleJumpAvailable = false;
     }
-    else if(isDoubleJumpAvailable == true && position.getY() == (getCurrentPosition().getY() + allowableMove2) && position.getX() == getCurrentPosition().getX()
-            && board.getFigure(position) == nullptr && board.getFigure(newPositionTemp) == nullptr)
+    else if(isDoubleJumpAvailable == true && newPosition.getPositionY() == (getCurrentPosition().getPositionY() + allowableMove2) && newPosition.getPositionX() == getCurrentPosition().getPositionX()
+            && board.getFigure(newPosition) == nullptr && board.getFigure(stepBystepNewPosition) == nullptr)
     {
         isValid = true;
         isDoubleJumpAvailable = false;
     }
-    else if(position.getY() == getCurrentPosition().getY() + allowableMove1 && (position.getX() == getCurrentPosition().getX() - 1 || position.getX() == getCurrentPosition().getX() + 1))
+    else if(newPosition.getPositionY() == getCurrentPosition().getPositionY() + allowableMove1 && (newPosition.getPositionX() == getCurrentPosition().getPositionX() - 1 || newPosition.getPositionX() == getCurrentPosition().getPositionX() + 1))
     {
-        //check if there is a piece of the opposite color
-        if(board.getFigure(position) != nullptr && (board.getFigure(position)->getColor() != this->getColor()))
+        
+        if(board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->getColor()))
         {
-            if(position.getY() == 7 || position.getY() == 0)
+            if(newPosition.getPositionY() == 7 || newPosition.getPositionY() == 0)
             {
-                figure = promote(position);
+                figure = promote(newPosition);
                 figure->print();
             }
 
@@ -134,7 +134,7 @@ bool Pawn::isValidMove(Position position, Figure* figure)
         }
     }
 
-    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
+    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getTypeFigure() == "K"))
     {
         std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }

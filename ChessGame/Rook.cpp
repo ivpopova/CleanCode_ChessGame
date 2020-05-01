@@ -17,12 +17,12 @@ Rook::~Rook()
 }
 
 
-bool Rook::isValidMove(Position position, Figure* figure)
+bool Rook::isValidMove(Position newPosition, Figure* figure)
 {
     bool isValid = false;
 
-    if((board.getFigure(position) == nullptr) ||
-       (board.getFigure(position) != nullptr && (board.getFigure(position)->getColor() != this->getColor())))
+    if((board.getFigure(newPosition) == nullptr) ||
+       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->getColor())))
     {
         isValid = true;
     }
@@ -31,15 +31,14 @@ bool Rook::isValidMove(Position position, Figure* figure)
     }
 
 
-    if((position.getY() == getCurrentPosition().getY()))
+    if((newPosition.getPositionY() == getCurrentPosition().getPositionY()))
     {
-        int xIncrement = (position.getX() - getCurrentPosition().getX()) / (abs(position.getX() - getCurrentPosition().getX()));
-        for(int i= getCurrentPosition().getX() + xIncrement; i!=position.getX(); i+=xIncrement)
+        int xIncrement = (newPosition.getPositionX() - getCurrentPosition().getPositionX()) / (abs(newPosition.getPositionX() - getCurrentPosition().getPositionX()));
+        for(int i= getCurrentPosition().getPositionX() + xIncrement; i!=newPosition.getPositionX(); i+=xIncrement)
         {
-            Position nextPosition;
-            nextPosition.setX (i);
-            nextPosition.setY(position.getY());
-            if(board.getFigure(nextPosition) != nullptr)
+            Position stepByStepNewPosition(i, newPosition.getPositionY());
+ 
+            if(board.getFigure(stepByStepNewPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
@@ -49,22 +48,23 @@ bool Rook::isValidMove(Position position, Figure* figure)
     }
 
     
-    if((position.getX() == getCurrentPosition().getX()))
+    if((newPosition.getPositionX() == getCurrentPosition().getPositionX()))
     {
-        int yIncrement = (position.getY() - getCurrentPosition().getY()) / (abs(position.getY() - getCurrentPosition().getY()));
-        for(int i= getCurrentPosition().getY() +yIncrement; i!=position.getY(); i+=yIncrement)
+        int yIncrement = (newPosition.getPositionY() - getCurrentPosition().getPositionY()) / (abs(newPosition.getPositionY() - getCurrentPosition().getPositionY()));
+        for(int i= getCurrentPosition().getPositionY()+yIncrement; i!=newPosition.getPositionY(); i+=yIncrement)
         {
-            Position nextPosition(position.getX(), i);
-            if(board.getFigure(nextPosition) != nullptr)
+            Position stepByStepNewPosition(newPosition.getPositionX(), i);
+            if(board.getFigure(stepByStepNewPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
             }
         }
+
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
+    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getTypeFigure() == "K"))
     {
         std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }

@@ -18,13 +18,13 @@ Bishop::~Bishop()
 { }
 
 
-bool Bishop::isValidMove(Position position, Figure* figure)
+bool Bishop::isValidMove(Position newPosition, Figure* figure)
 {
     bool isValid = false;
     
 
-    if((board.getFigure(position) == nullptr) || ((board.getFigure(position) != nullptr) && 
-   (board.getFigure(position)->getColor() != this->getColor())))
+    if((board.getFigure(newPosition) == nullptr) || ((board.getFigure(newPosition) != nullptr) && 
+   (board.getFigure(newPosition)->getColor() != this->getColor())))
     {
         isValid = true;
     }
@@ -33,10 +33,10 @@ bool Bishop::isValidMove(Position position, Figure* figure)
         return isValid;
     }
 
-    int currentX = getCurrentPosition().getX();
-    int currentY = getCurrentPosition().getY();
-    int newX = position.getX();
-    int newY = position.getY();
+    int currentX = getCurrentPosition().getPositionX();
+    int currentY = getCurrentPosition().getPositionY();
+    int newX = newPosition.getPositionX();
+    int newY = newPosition.getPositionY();
 
     if(abs(currentY - newY) == abs(currentX - newX))
     {
@@ -46,8 +46,8 @@ bool Bishop::isValidMove(Position position, Figure* figure)
 
 		for(int i=1; i<abs(currentX - newX); ++i)
 		{
-		    Position nextPosition(currentX + xIncrement*i, currentY + yIncrement*i);
-			if(board.getFigure(nextPosition) != nullptr)
+		    Position stepByStepNewPosition(currentX + xIncrement*i, currentY + yIncrement*i);
+			if(board.getFigure(stepByStepNewPosition) != nullptr)
             {
                 isValid = false;
                 return isValid;
@@ -57,7 +57,7 @@ bool Bishop::isValidMove(Position position, Figure* figure)
         isValid = true;
     }
 
-    if(isValid && (board.getFigure(position) != nullptr) && (board.getFigure(position)->getTypeFigure() == "K"))
+    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getTypeFigure() == "K"))
     {
         std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }

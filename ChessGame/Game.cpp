@@ -47,9 +47,9 @@ Position convertChessNotation(std::string moveInputStr)
     Position movePosition;
 
     //cast to an int, and subtract 97 to make ASCII
-    movePosition.setX((int)moveInputStr[0] - 97);
+    movePosition.setPositionX((int)moveInputStr[0] - 97);
     //subtract 1 to make 0 based
-    movePosition.setY( atoi(&moveInputStr[1]) - 1);
+    movePosition.setPositionY( atoi(&moveInputStr[1]) - 1);
 
     return movePosition;
 }
@@ -64,13 +64,13 @@ bool Game::isValidInput()
     }
 
     //check if from position is within the chess board
-    if(currentPosition.getX() < 0 || currentPosition.getX() > 7 || currentPosition.getY() < 0 || currentPosition.getY() > 7)
+    if(currentPosition.getPositionX() < 0 || currentPosition.getPositionX() > 7 || currentPosition.getPositionY() < 0 || currentPosition.getPositionY() > 7)
     {
         std::cout << "Source location out of the chess board\n";
         return false;
     }
     //check if to position is within the chess board
-    if(nextPosition.getX() < 0 || nextPosition.getX() > 7 || nextPosition.getY() < 0 || nextPosition.getY() > 7)
+    if(nextPosition.getPositionX() < 0 || nextPosition.getPositionX() > 7 || nextPosition.getPositionY() < 0 || nextPosition.getPositionY() > 7)
     {
         std::cout << "Destination location out of the chess board\n";
         return false;
@@ -97,7 +97,7 @@ void Game::startNewGame()
     while(input1 != "quit")
     {
         std::cout << "\n\n\n\n";
-        board.printBoard();
+        board.print();
 
         do{
             if(colorOnTurn == Color::White)

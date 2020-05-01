@@ -19,9 +19,9 @@ void Figure::print()
 
 }
 
-void Figure::setPosition(Position position)
+void Figure::setPosition(Position currentPosition)
 {
-    this->position = position;
+    this->currentPosition = currentPosition;
 }
 
 void Figure::setColor(Color color)
@@ -37,7 +37,7 @@ void Figure::setTypeFigure(std::string typeFigure)
 
 Position Figure::getCurrentPosition() const
 {
-    return position;
+    return currentPosition;
 }
 
 

@@ -6,11 +6,11 @@ private:
 	int yPosition = -1;
 
 public:
-	void setX(int xPosition);
-	void setY(int yPosition);
+	void setPositionX(int xPosition);
+	void setPositionY(int yPosition);
 
-	int getX()const;
-	int getY()const;
+	int getPositionX()const;
+	int getPositionY()const;
 
 	Position();
 	Position(int xPosition, int yPosition);
