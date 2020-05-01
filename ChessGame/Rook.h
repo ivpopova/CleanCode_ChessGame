@@ -1,8 +1,7 @@
 #pragma once
 #include "Figure.h"
 
-class Rook: public virtual Figure
-{
+class Rook: public virtual Figure {
 public:
     Rook(Color color, Position position);
     ~Rook();

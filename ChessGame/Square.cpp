@@ -1,31 +1,26 @@
 #include "Square.h"
 #include "Figure.h"
 
-Square::Square()
-{
+Square::Square() {
 }
 
-Square::~Square()
-{ }
-
-Figure* Square::getFigure() const
-{
-    return chessFigure;
+Square::~Square() {
 }
 
-
-void Square::setFigure(Figure* figure)
-{
-    this->chessFigure = figure;
+Figure* Square::getFigure() const {
+    return figure;
 }
 
 
-void Square::clearFigure()
-{
-    this->chessFigure = nullptr;
+void Square::setFigure(Figure* figure) {
+    this->figure = figure;
 }
 
-void Square::print()
-{
-    chessFigure->print();
+
+void Square::clearFigure() {
+    this->figure = nullptr;
+}
+
+void Square::print() {
+    figure->print();
 }

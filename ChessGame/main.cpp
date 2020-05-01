@@ -2,8 +2,7 @@
 
 Board board;
 
-int main()
-{
+int main() {
     Game newGame;
     newGame.startNewGame();
 

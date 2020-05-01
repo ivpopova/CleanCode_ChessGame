@@ -1,56 +1,45 @@
 #include "Figure.h"
 
-Figure::Figure()
-{
+Figure::Figure() {
     typeFigure = " ";
 }
 
-void Figure::print()
-{
-    if (color == Color::Black)
-    {
+void Figure::print() {
+    if (color == Color::Black) {
         std::cout << "b";
     }
-    else
-    {
+    else {
         std::cout << "w";
     }
-    std::cout << typeFigure;
 
+    std::cout << typeFigure;
 }
 
-void Figure::setPosition(Position currentPosition)
-{
+void Figure::setPosition(Position currentPosition) {
     this->currentPosition = currentPosition;
 }
 
-void Figure::setColor(Color color)
-{
+void Figure::setColor(Color color) {
     this->color = color;
 }
 
-void Figure::setTypeFigure(std::string typeFigure)
-{
+void Figure::setTypeFigure(std::string typeFigure) {
     this->typeFigure = typeFigure;
 }
 
 
-Position Figure::getCurrentPosition() const
-{
+Position Figure::getCurrentPosition() const {
     return currentPosition;
 }
 
 
-Color Figure::getColor() const
-{
+Color Figure::getColor() const {
     return this->color;
 }
 
-std::string Figure::getTypeFigure() const
-{
+std::string Figure::getTypeFigure() const {
     return typeFigure;
 }
 
-Figure::~Figure()
-{
+Figure::~Figure() {
 }

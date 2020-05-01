@@ -8,77 +8,71 @@
 #include "Bishop.h"
 
 
-Board::Board()
-{
+Board::Board() {
     initializeFigures();
 }
 
 
-Board::~Board()
-{ }
+Board::~Board() {
+}
 
 void Board::print()
 {
-    //print horizontal divider for the top of the board
-    for(int row = BOARD_SIZE-1; row >= 0; row--)
-    {
+    for (int row = BOARD_SIZE-1; row >= 0; row--) {
         std::cout << "   ";
-        for(int col=0; col< BOARD_SIZE; ++col)
-        {
+
+        for (int col=0; col< BOARD_SIZE; ++col) {
             std::cout << "-----";
         }
+
         std::cout << "-\n";
 
         //print vertical row divider and chess piece
         std::cout << row + 1 << "  ";
-        for(int col=0; col< BOARD_SIZE; ++col)
-        {
+        for (int col=0; col< BOARD_SIZE; ++col) {
             std::cout << "| ";
 
             Figure *currentFigure = board[row][col].getFigure();
-            if(currentFigure != nullptr)
-            {
+            if (currentFigure != nullptr) {
                 currentFigure->print();
             }
-            else
-            {
+            else {
                 std::cout << "  ";
             }
+
             std::cout << " ";
         }
+
         std::cout << "|" << std::endl;
     }
 
     //print horizontal divider for the bottom of the board
     std::cout << "   ";
-    for(int col=0; col< BOARD_SIZE; ++col)
-    {
+    for (int col=0; col< BOARD_SIZE; ++col) {
         std::cout << "-----";
     }
+
     std::cout << "-\n";
 
     //print Letters on the bottom of the board
     std::cout << "   ";
-    for(int col=0; col< BOARD_SIZE; ++col)
-    {
+    for (int col=0; col< BOARD_SIZE; ++col) {
         std::cout << "  " << (char)(col + 97) << "  ";
     }
+
     std::cout << "\n\n";
 }
 
 
-void Board::changeFigure(Position position, Figure* figure)
-{
+void Board::changeFigure(Position position, Figure* figure) {
     board[position.getPositionY()][position.getPositionX()].clearFigure();
     board[position.getPositionY()][position.getPositionX()].setFigure(figure);
 }
 
 
-void Board::initializeFigures()
-{
+void Board::initializeFigures() {
     // Pawns
-    for(int col=0; col< BOARD_SIZE; ++col)
-    {
+    for (int col=0; col< BOARD_SIZE; ++col) {
         Position blackPawn(col,6);
         board[blackPawn.getPositionY()][blackPawn.getPositionX()].setFigure(new Pawn(Black, blackPawn));
 
@@ -146,17 +140,15 @@ void Board::initializeFigures()
 }
 
 
-bool Board::moveFigure(Position currentPosition, Position newPosition)
-{
+bool Board::moveFigure(Position currentPosition, Position newPosition) {
+    
     bool isMoveCompleted = false;
 
     Figure* figure = board[currentPosition.getPositionY()][currentPosition.getPositionX()].getFigure();
-
-    
-    if(figure != nullptr && figure->isValidMove(newPosition, figure) && isWithinBoard(newPosition))
-    {
+    if (figure != nullptr && figure->isValidMove(newPosition, figure) && isWithinBoard(newPosition)) {
         figure->print();
         figure->setPosition(newPosition);
+
         board[newPosition.getPositionY()][newPosition.getPositionX()].setFigure(figure);
         board[currentPosition.getPositionY()][currentPosition.getPositionX()].clearFigure();
 
@@ -167,16 +159,13 @@ bool Board::moveFigure(Position currentPosition, Position newPosition)
 }
 
 
-Figure* Board::getFigure(Position figurePosition)
-{
+Figure* Board::getFigure(Position figurePosition) {
     return board[figurePosition.getPositionY()][figurePosition.getPositionX()].getFigure();
 }
 
 
-bool Board::isWithinBoard(Position position)
-{
-    if((0 <= position.getPositionX() && position.getPositionX() <= 7) && (0 <= position.getPositionY() && position.getPositionY() <= 7))
-    {
+bool Board::isWithinBoard(Position position) {
+    if ((0 <= position.getPositionX() && position.getPositionX() <= 7) && (0 <= position.getPositionY() && position.getPositionY() <= 7)) {
         return true;
     }
 

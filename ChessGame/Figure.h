@@ -7,8 +7,8 @@
 class Figure {
   public:
     Figure();
+    virtual ~Figure();
     
-    void print();
     void setPosition(Position currentPosition);
     void setColor(Color color);
     void setTypeFigure(std::string typeFigure);
@@ -17,12 +17,11 @@ class Figure {
     Color getColor() const;
     std::string getTypeFigure() const ;
 
+    void print();
     virtual bool isValidMove(Position newPosition, Figure* figure) = 0;
-    virtual ~Figure();
-
+    
   private:
     std::string typeFigure;
     Color color;
     Position currentPosition;
-
 };
