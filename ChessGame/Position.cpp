@@ -1,29 +1,29 @@
 #include "Position.h"
 
-void Position::setPositionX(int xPosition) {
-	this->xPosition = xPosition;
+void Position::setCoordinateX(int xCoordinate) {
+	this->xCoordinate = xCoordinate;
 }
 
-void Position::setPositionY(int yPosition) {
-	this->yPosition = yPosition;
+void Position::setCoordinateY(int yCoordinate) {
+	this->yCoordinate = yCoordinate;
 }
 
-int Position::getPositionX() const {
-	return this->xPosition;
+int Position::getCoordinateX() const {
+	return this->xCoordinate;
 }
 
-int Position::getPositionY() const {
-	return this->yPosition;
+int Position::getCoordinateY() const {
+	return this->yCoordinate;
 }
 
 Position::Position() {
-	setPositionX(-1);
-	setPositionY(-1);
+	setCoordinateX(-1);
+	setCoordinateY(-1);
 }
 
 Position::Position(int xPosition, int yPosition) {
-	setPositionX(xPosition);
-	setPositionY(yPosition);
+	setCoordinateX(xPosition);
+	setCoordinateY(yPosition);
 }
 
 Position::~Position() {

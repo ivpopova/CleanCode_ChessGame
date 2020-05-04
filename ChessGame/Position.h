@@ -3,16 +3,16 @@
 class Position {
 public:
 	Position();
-	Position(int xPosition, int yPosition);
+	Position(int xCoordinate, int yCoordinate);
 	~Position();
 
-	void setPositionX(int xPosition);
-	void setPositionY(int yPosition);
+	void setCoordinateX(int xCoordinate);
+	void setCoordinateY(int yCoordinate);
 
-	int getPositionX()const;
-	int getPositionY()const;
+	int getCoordinateX()const;
+	int getCoordinateY()const;
 
 private:
-	int xPosition = -1;
-	int yPosition = -1;
+	int xCoordinate = -1;
+	int yCoordinate = -1;
 };
