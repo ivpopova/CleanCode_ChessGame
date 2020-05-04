@@ -65,8 +65,8 @@ void Board::print()
 
 
 void Board::changeFigure(Position position, Figure* figure) {
-    board[position.getPositionY()][position.getPositionX()].clearFigure();
-    board[position.getPositionY()][position.getPositionX()].setFigure(figure);
+    board[position.getCoordinateY()][position.getCoordinateX()].clearFigure();
+    board[position.getCoordinateY()][position.getCoordinateX()].setFigure(figure);
 }
 
 
@@ -74,83 +74,82 @@ void Board::initializeFigures() {
     // Pawns
     for (int col=0; col< BOARD_SIZE; ++col) {
         Position blackPawn(col,6);
-        board[blackPawn.getPositionY()][blackPawn.getPositionX()].setFigure(new Pawn(Black, blackPawn));
+        board[blackPawn.getCoordinateY()][blackPawn.getCoordinateX()].setFigure(new Pawn(Black, blackPawn));
 
         Position whitePawn(col,1);
-        board[whitePawn.getPositionY()][blackPawn.getPositionX()].setFigure(new Pawn(White, whitePawn));
+        board[whitePawn.getCoordinateY()][blackPawn.getCoordinateX()].setFigure(new Pawn(White, whitePawn));
     }
 
 
     // Rooks
     Position whiteLeftRook(0,0);
-    board[whiteLeftRook.getPositionY()][whiteLeftRook.getPositionX()].setFigure(new Rook(White, whiteLeftRook));
+    board[whiteLeftRook.getCoordinateY()][whiteLeftRook.getCoordinateX()].setFigure(new Rook(White, whiteLeftRook));
 
     Position whiteRightRook (7,0);
-    board[whiteRightRook.getPositionY()][whiteRightRook.getPositionX()].setFigure(new Rook(White, whiteRightRook));
+    board[whiteRightRook.getCoordinateY()][whiteRightRook.getCoordinateX()].setFigure(new Rook(White, whiteRightRook));
 
     Position blackLeftRook (0,7);
-    board[blackLeftRook.getPositionY()][blackLeftRook.getPositionX()].setFigure(new Rook(Black, blackLeftRook));
+    board[blackLeftRook.getCoordinateY()][blackLeftRook.getCoordinateX()].setFigure(new Rook(Black, blackLeftRook));
 
     Position blackRightRook (7,7);
-    board[blackRightRook.getPositionY()][blackRightRook.getPositionX()].setFigure(new Rook(Black, blackRightRook));
+    board[blackRightRook.getCoordinateY()][blackRightRook.getCoordinateX()].setFigure(new Rook(Black, blackRightRook));
 
 
     // Knights
     Position whiteLeftKnight (1,0);
-    board[whiteLeftKnight.getPositionY()][whiteLeftKnight.getPositionX()].setFigure(new Knight(White, whiteLeftKnight));
+    board[whiteLeftKnight.getCoordinateY()][whiteLeftKnight.getCoordinateX()].setFigure(new Knight(White, whiteLeftKnight));
 
     Position whiteRightKnight (6,0);
-    board[whiteRightKnight.getPositionY()][whiteRightKnight.getPositionX()].setFigure(new Knight(White, whiteRightKnight));
+    board[whiteRightKnight.getCoordinateY()][whiteRightKnight.getCoordinateX()].setFigure(new Knight(White, whiteRightKnight));
 
     Position blackLeftKnight (1,7);
-    board[blackLeftKnight.getPositionY()][blackLeftKnight.getPositionX()].setFigure(new Knight(Black, blackLeftKnight));
+    board[blackLeftKnight.getCoordinateY()][blackLeftKnight.getCoordinateX()].setFigure(new Knight(Black, blackLeftKnight));
 
     Position blackRightKnight (6,7);
-    board[blackRightKnight.getPositionY()][blackRightKnight.getPositionX()].setFigure(new Knight(Black, blackRightKnight));
+    board[blackRightKnight.getCoordinateY()][blackRightKnight.getCoordinateX()].setFigure(new Knight(Black, blackRightKnight));
 
 
     // Bishops
     Position whiteLeftBishop (2,0);
-    board[whiteLeftBishop.getPositionY()][whiteLeftBishop.getPositionX()].setFigure(new Bishop(White, whiteLeftBishop));
+    board[whiteLeftBishop.getCoordinateY()][whiteLeftBishop.getCoordinateX()].setFigure(new Bishop(White, whiteLeftBishop));
 
     Position whiteRightBishop (5,0);
-    board[whiteRightBishop.getPositionY()][whiteRightBishop.getPositionX()].setFigure(new Bishop(White, whiteRightBishop));
+    board[whiteRightBishop.getCoordinateY()][whiteRightBishop.getCoordinateX()].setFigure(new Bishop(White, whiteRightBishop));
 
     Position blackLeftBishop (2,7);
-    board[blackLeftBishop.getPositionY()][blackLeftBishop.getPositionX()].setFigure(new Bishop(Black, blackLeftBishop));
+    board[blackLeftBishop.getCoordinateY()][blackLeftBishop.getCoordinateX()].setFigure(new Bishop(Black, blackLeftBishop));
 
     Position blackRightBishop (5,7);
-    board[blackRightBishop.getPositionY()][blackRightBishop.getPositionX()].setFigure(new Bishop(Black, blackRightBishop));
+    board[blackRightBishop.getCoordinateY()][blackRightBishop.getCoordinateX()].setFigure(new Bishop(Black, blackRightBishop));
 
 
     // Kings
     Position whiteKing (4,0);
-    board[whiteKing.getPositionY()][whiteKing.getPositionX()].setFigure(new King(White, whiteKing));
+    board[whiteKing.getCoordinateY()][whiteKing.getCoordinateX()].setFigure(new King(White, whiteKing));
 
     Position blackKing (4,7);
-    board[blackKing.getPositionY()][blackKing.getPositionX()].setFigure(new King(Black, blackKing));
+    board[blackKing.getCoordinateY()][blackKing.getCoordinateX()].setFigure(new King(Black, blackKing));
 
 
     // Queens
     Position whiteQueen (3,0);
-    board[whiteQueen.getPositionY()][whiteQueen.getPositionX()].setFigure(new Queen(White, whiteQueen));
+    board[whiteQueen.getCoordinateY()][whiteQueen.getCoordinateX()].setFigure(new Queen(White, whiteQueen));
 
     Position blackQueen (3,7);
-    board[blackQueen.getPositionY()][blackQueen.getPositionX()].setFigure(new Queen(Black, blackQueen));
+    board[blackQueen.getCoordinateY()][blackQueen.getCoordinateX()].setFigure(new Queen(Black, blackQueen));
 }
 
 
 bool Board::moveFigure(Position currentPosition, Position newPosition) {
-    
     bool isMoveCompleted = false;
 
-    Figure* figure = board[currentPosition.getPositionY()][currentPosition.getPositionX()].getFigure();
+    Figure* figure = board[currentPosition.getCoordinateY()][currentPosition.getCoordinateX()].getFigure();
     if (figure != nullptr && figure->isValidMove(newPosition, figure) && isWithinBoard(newPosition)) {
         figure->print();
-        figure->setPosition(newPosition);
+        figure->setCurrentPosition(newPosition);
 
-        board[newPosition.getPositionY()][newPosition.getPositionX()].setFigure(figure);
-        board[currentPosition.getPositionY()][currentPosition.getPositionX()].clearFigure();
+        board[newPosition.getCoordinateY()][newPosition.getCoordinateX()].setFigure(figure);
+        board[currentPosition.getCoordinateY()][currentPosition.getCoordinateX()].clearFigure();
 
         isMoveCompleted = true;
     }
@@ -159,13 +158,13 @@ bool Board::moveFigure(Position currentPosition, Position newPosition) {
 }
 
 
-Figure* Board::getFigure(Position figurePosition) {
-    return board[figurePosition.getPositionY()][figurePosition.getPositionX()].getFigure();
+Figure* Board::getFigureFromPosition(Position figurePosition) {
+    return board[figurePosition.getCoordinateY()][figurePosition.getCoordinateX()].getFigure();
 }
 
 
 bool Board::isWithinBoard(Position position) {
-    if ((0 <= position.getPositionX() && position.getPositionX() <= 7) && (0 <= position.getPositionY() && position.getPositionY() <= 7)) {
+    if ((0 <= position.getCoordinateX() && position.getCoordinateX() <= 7) && (0 <= position.getCoordinateY() && position.getCoordinateY() <= 7)) {
         return true;
     }
 

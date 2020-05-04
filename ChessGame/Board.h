@@ -8,7 +8,7 @@ public:
     Board();
     virtual ~Board();
 
-    Figure* getFigure(Position figurePosition);
+    Figure* getFigureFromPosition(Position figurePosition);
     bool moveFigure(Position currentPosition, Position newPosition);
     void changeFigure(Position position, Figure* figure);
     void print();
