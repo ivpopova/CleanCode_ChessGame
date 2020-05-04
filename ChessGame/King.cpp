@@ -5,72 +5,58 @@
 
 extern Board board; 
 
-King::King(Color color, Position position)
-{
+King::King(Color color, Position position) {
     setTypeFigure("K");
     setColor(color);
-    setPosition(position);
+    setCurrentPosition(position);
 }
 
-King::~King()
-{ }
+King::~King(){
+}
 
 
-bool King::isValidMove(Position newPosition, Figure* figure)
-{
+bool King::isValidMove(Position newPosition, Figure* figure) {
  bool isValid = false;
 
     //check if it's possible to move the king to this square
-    if((board.getFigure(newPosition) == nullptr) ||
-       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->getColor())))
-    {
+    if((board.getFigureFromPosition(newPosition) == nullptr) ||
+       (board.getFigureFromPosition(newPosition) != nullptr && (board.getFigureFromPosition(newPosition)->getColor() != this->getColor()))) {
         isValid = true;
     }
-    else
-    {
+    else {
         return isValid;
     }
 
     
-    if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() + 1) && newPosition.getPositionX() == (getCurrentPosition().getPositionX() - 1))
-    {
+    if(newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() + 1) && newPosition.getCoordinateX() == (getCurrentPosition().getCoordinateX() - 1)) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() + 1) && newPosition.getPositionX() == getCurrentPosition().getPositionX())
-    {
+    else if(newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() + 1) && newPosition.getCoordinateX() == getCurrentPosition().getCoordinateX()) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() + 1) && newPosition.getPositionX() == (getCurrentPosition().getPositionX() + 1))
-    {
+    else if(newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() + 1) && newPosition.getCoordinateX() == (getCurrentPosition().getCoordinateX() + 1)) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == getCurrentPosition().getPositionY() && newPosition.getPositionX() == (getCurrentPosition().getPositionX() - 1))
-    {
+    else if(newPosition.getCoordinateY() == getCurrentPosition().getCoordinateY() && newPosition.getCoordinateX() == (getCurrentPosition().getCoordinateX() - 1)) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == getCurrentPosition().getPositionY() && newPosition.getPositionX() == (getCurrentPosition().getPositionX() + 1))
-    {
+    else if(newPosition.getCoordinateY() == getCurrentPosition().getCoordinateY() && newPosition.getCoordinateX() == (getCurrentPosition().getCoordinateX() + 1)) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() - 1) && newPosition.getPositionX() == (getCurrentPosition().getPositionX()  - 1))
-    {
+    else if(newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() - 1) && newPosition.getCoordinateX() == (getCurrentPosition().getCoordinateX()  - 1)) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() - 1) && newPosition.getPositionX() == getCurrentPosition().getPositionX())
-    {
+    else if(newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() - 1) && newPosition.getCoordinateX() == getCurrentPosition().getCoordinateX()) {
         isValid = true;
     }
-    else if(newPosition.getPositionY() == (getCurrentPosition().getPositionY() - 1) && newPosition.getPositionX() == (getCurrentPosition().getPositionX() + 1))
-    {
+    else if(newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() - 1) && newPosition.getCoordinateX() == (getCurrentPosition().getCoordinateX() + 1)) {
         isValid = true;
     }
-    else
-    {
+    else {
         isValid = false;
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getTypeFigure() == "K"))
-    {
+    if(isValid && (board.getFigureFromPosition(newPosition) != nullptr) && (board.getFigureFromPosition(newPosition)->getTypeFigure() == "K")) {
         std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
