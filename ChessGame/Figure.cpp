@@ -15,7 +15,7 @@ void Figure::print() {
     std::cout << typeFigure;
 }
 
-void Figure::setPosition(Position currentPosition) {
+void Figure::setCurrentPosition(Position currentPosition) {
     this->currentPosition = currentPosition;
 }
 

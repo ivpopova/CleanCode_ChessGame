@@ -11,6 +11,7 @@ public:
 
     void clearFigure();
     void print();
+
 private:
     Figure* figure = nullptr;
 };

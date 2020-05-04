@@ -6,7 +6,7 @@ extern Board board;
 Queen::Queen(Color color, Position position): Figure(), Bishop(color, position), Rook(color, position) {
     setTypeFigure("Q");
     setColor(color);
-    setPosition(position);
+    setCurrentPosition(position);
 }
 
 Queen::~Queen() {

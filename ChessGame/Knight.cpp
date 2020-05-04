@@ -9,7 +9,7 @@ extern Board board;
 Knight::Knight(Color color, Position position) {
     setTypeFigure("N");
     setColor(color);
-    setPosition(position);
+    setCurrentPosition(position);
 }
 
 
@@ -19,9 +19,8 @@ Knight::~Knight() {
 bool Knight::isValidMove(Position newPosition, Figure* figure) {
     bool isValid = false;
 
-    //check if it's possible to move the knight to this square
-    if ((board.getFigure(newPosition) == nullptr) ||
-       (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->getColor()))) {
+    if ((board.getFigureFromPosition(newPosition) == nullptr) ||
+       (board.getFigureFromPosition(newPosition) != nullptr && (board.getFigureFromPosition(newPosition)->getColor() != this->getColor()))) {
         
         isValid = true;
     }
@@ -30,13 +29,13 @@ bool Knight::isValidMove(Position newPosition, Figure* figure) {
         return isValid;
     }
 
-    if (((abs(getCurrentPosition().getPositionX() - newPosition.getPositionX()) == 2) && (abs(getCurrentPosition().getPositionY() - newPosition.getPositionY()) == 1)) ||
-       ((abs(getCurrentPosition().getPositionX() - newPosition.getPositionX()) == 1) && (abs(getCurrentPosition().getPositionY() - newPosition.getPositionY()) == 2))) {
+    if (((abs(getCurrentPosition().getCoordinateX() - newPosition.getCoordinateX()) == 2) && (abs(getCurrentPosition().getCoordinateY() - newPosition.getCoordinateY()) == 1)) ||
+       ((abs(getCurrentPosition().getCoordinateX() - newPosition.getCoordinateX()) == 1) && (abs(getCurrentPosition().getCoordinateY() - newPosition.getCoordinateY()) == 2))) {
        
         isValid = true;
     }
 
-    if (isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getTypeFigure() == "K")) {
+    if (isValid && (board.getFigureFromPosition(newPosition) != nullptr) && (board.getFigureFromPosition(newPosition)->getTypeFigure() == "K")) {
         std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 

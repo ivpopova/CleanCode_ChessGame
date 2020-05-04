@@ -52,18 +52,18 @@ bool Game::isValidInput() {
         return false;
     }
     //check if from position is within the chess board
-    else if (currentPosition.getPositionX() < 0 || currentPosition.getPositionX() > 7 || currentPosition.getPositionY() < 0 || currentPosition.getPositionY() > 7) {
+    else if (currentPosition.getCoordinateX() < 0 || currentPosition.getCoordinateX() > 7 || currentPosition.getCoordinateY() < 0 || currentPosition.getCoordinateY() > 7) {
         std::cout << "Source location out of the chess board\n";
 
         return false;
     }
     //check if to position is within the chess board
-    else if (nextPosition.getPositionX() < 0 || nextPosition.getPositionX() > 7 || nextPosition.getPositionY() < 0 || nextPosition.getPositionY() > 7) {
+    else if (nextPosition.getCoordinateX() < 0 || nextPosition.getCoordinateX() > 7 || nextPosition.getCoordinateY() < 0 || nextPosition.getCoordinateY() > 7) {
         std::cout << "Destination location out of the chess board\n";
 
         return false;
     }
-    else if (board.getFigure(currentPosition) == nullptr) {
+    else if (board.getFigureFromPosition(currentPosition) == nullptr) {
         std::cout << "There is no piece on this source location on the chess board\n";
         
         return false;
@@ -122,7 +122,7 @@ void Game::startNewGame() {
             while(!isValidInput());
 
             //check that the right colored piece is selected
-            if(board.getFigure(currentPosition)->getColor() != colorOnTurn) {
+            if(board.getFigureFromPosition(currentPosition)->getColor() != colorOnTurn) {
                 std::cout << "Move Invalid: Wrong color piece selected\n";
                 isMoveSuccessful = false;
             }

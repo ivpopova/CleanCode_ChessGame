@@ -9,7 +9,7 @@ class Figure {
     Figure();
     virtual ~Figure();
     
-    void setPosition(Position currentPosition);
+    void setCurrentPosition(Position currentPosition);
     void setColor(Color color);
     void setTypeFigure(std::string typeFigure);
 

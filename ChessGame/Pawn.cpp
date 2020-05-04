@@ -11,7 +11,7 @@ extern Board board;
 Pawn::Pawn(Color color, Position position) {
     setTypeFigure("P");
     setColor(color);
-    setPosition(position);
+    setCurrentPosition(position);
     this->isDoubleJumpAvailable = true;
 }
 
@@ -81,20 +81,20 @@ Figure* Pawn::promote(Position position) {
 bool Pawn::isValidMove(Position newPosition, Figure* figure) {
     bool isValid = false;
 
-    int allowableMove1 = 1;
-    int allowableMove2 = 2;
+    int oneAllowableMove = 1;
+    int twoAllowableMoves = 2;
 
     //if black on turn, the movement is downwards on board
     if (getColor() == Color::Black) {
-        allowableMove1 = -1;
-        allowableMove2 = -2;
+        oneAllowableMove = -1;
+        twoAllowableMoves = -2;
     }
 
-    Position stepBystepNewPosition(getCurrentPosition().getPositionY() + allowableMove1, getCurrentPosition().getPositionX());
+    Position stepByStepNewPosition(getCurrentPosition().getCoordinateY() + oneAllowableMove, getCurrentPosition().getCoordinateX());
 
-    if (newPosition.getPositionY() == (getCurrentPosition().getPositionY() + allowableMove1) && newPosition.getPositionX() == getCurrentPosition().getPositionX() && board.getFigure(newPosition) == nullptr)  {
+    if (newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() + oneAllowableMove) && newPosition.getCoordinateX() == getCurrentPosition().getCoordinateX() && board.getFigureFromPosition(newPosition) == nullptr)  {
       
-        if (newPosition.getPositionY() == 7 || newPosition.getPositionY() == 0) {
+        if (newPosition.getCoordinateY() == 7 || newPosition.getCoordinateY() == 0) {
 
             figure = promote(newPosition);
         }
@@ -102,17 +102,17 @@ bool Pawn::isValidMove(Position newPosition, Figure* figure) {
         isValid = true;
         isDoubleJumpAvailable = false;
     }
-    else if (isDoubleJumpAvailable == true && newPosition.getPositionY() == (getCurrentPosition().getPositionY() + allowableMove2) && newPosition.getPositionX() == getCurrentPosition().getPositionX()
-            && board.getFigure(newPosition) == nullptr && board.getFigure(stepBystepNewPosition) == nullptr) {
+    else if (isDoubleJumpAvailable == true && newPosition.getCoordinateY() == (getCurrentPosition().getCoordinateY() + twoAllowableMoves) && newPosition.getCoordinateX() == getCurrentPosition().getCoordinateX()
+            && board.getFigureFromPosition(newPosition) == nullptr && board.getFigureFromPosition(stepByStepNewPosition) == nullptr) {
 
         isValid = true;
         isDoubleJumpAvailable = false;
     }
-    else if (newPosition.getPositionY() == getCurrentPosition().getPositionY() + allowableMove1 && (newPosition.getPositionX() == getCurrentPosition().getPositionX() - 1 || newPosition.getPositionX() == getCurrentPosition().getPositionX() + 1)) {
+    else if (newPosition.getCoordinateY() == getCurrentPosition().getCoordinateY() + oneAllowableMove && (newPosition.getCoordinateX() == getCurrentPosition().getCoordinateX() - 1 || newPosition.getCoordinateX() == getCurrentPosition().getCoordinateX() + 1)) {
         
-        if (board.getFigure(newPosition) != nullptr && (board.getFigure(newPosition)->getColor() != this->getColor())) {
+        if (board.getFigureFromPosition(newPosition) != nullptr && (board.getFigureFromPosition(newPosition)->getColor() != this->getColor())) {
             
-            if(newPosition.getPositionY() == 7 || newPosition.getPositionY() == 0) {
+            if(newPosition.getCoordinateY() == 7 || newPosition.getCoordinateY() == 0) {
                 figure = promote(newPosition);
                 figure->print();
             }
@@ -122,7 +122,7 @@ bool Pawn::isValidMove(Position newPosition, Figure* figure) {
         }
     }
 
-    if(isValid && (board.getFigure(newPosition) != nullptr) && (board.getFigure(newPosition)->getTypeFigure() == "K")) {
+    if (isValid && (board.getFigureFromPosition(newPosition) != nullptr) && (board.getFigureFromPosition(newPosition)->getTypeFigure() == "K")) {
         std::cout << ((this->getColor() == Color::White) ? "White's " : "Black's ") << "king is checked!";
     }
 
